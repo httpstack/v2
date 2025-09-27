@@ -17,7 +17,9 @@ $settings = [
         "logs" => APP_ROOT . "/logs",
     ],
     "aliases" => [
-        "ctrl.rte.home" => App\Controllers\Routes\HomeController::class,
+            "ctrl.mw.session" => App\Controllers\Middleware\SessionController::class,
+            "ctrl.mw.initview" => App\Controllers\Middleware\View::class,
+            "ctrl.rte.home" => App\Controllers\Routes\HomeController::class,
     ]
 ];
 return $settings;

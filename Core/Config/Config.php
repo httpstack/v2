@@ -7,17 +7,16 @@ use Core\Container\Container;
 class Config
 {
     public array $settings = [];
-    protected string $configDir = '/config';
-
-    public function __construct(string $configDir)
+    protected string $configDir;
+    public function __construct()
     {
         //print_r($c);
-        $this->configDir = $configDir;
+        $this->configDir = "/config";
         $this->loadConfigs();
     }
     public function getSettings()
     {
-        return $this->settings;
+        return $this->settings;     
     }
     public function setConfigDir(string $dir)
     {
@@ -29,7 +28,7 @@ class Config
         $configDir = APP_ROOT . $configDir;
         $configs = [];
         foreach (glob($configDir . '/*.php') as $file) {
-            print_r($file);
+           // print_r($file);
             $key = basename($file, '.php');
             $configs[$key] = include $file;
         }

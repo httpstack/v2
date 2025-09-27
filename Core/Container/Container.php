@@ -37,13 +37,8 @@ class Container implements ContainerInterface
     /**
      * NEW: Add an alias for a class FQN.
      */
-    public function alias(string|array  $alias, string $fqn): void
+    public function alias(string  $alias, string $fqn): void
     {
-        if (is_array($alias)) {
-            foreach ($alias as $a => $fqn) {
-                $this->aliases[$a] = $fqn;
-            }
-        }
         $this->aliases[$alias] = $fqn;
     }
 

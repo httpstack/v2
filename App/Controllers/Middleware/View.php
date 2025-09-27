@@ -12,6 +12,7 @@ class View
     {
         $cfg = $c->make(Config::class);
         $fl = $c->make(FileLoader::class);
+        //print_r($cfg);
         //config for paths
         //fileloader
         //template

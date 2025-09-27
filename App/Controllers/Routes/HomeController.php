@@ -22,9 +22,8 @@ class HomeController
         $this->home($c, $matches);
         $res = $c->make(Response::class);
         $fl = $c->make(FileLoader::class);
-        print_r($fl);
         $res->setHeader("Content-Type:", "text/html");
-        $res->setBody("<div>hello</div>");
+        $res->setBody("<div>home controller, container captured</div>");
         $res->send();
     }
     public function home($c, $matches)

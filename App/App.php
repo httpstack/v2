@@ -1,19 +1,18 @@
 <?php
-
 namespace App;
 
-use Core\Routing\Router;
+use App\Controllers\Middleware\View as ViewInit;
+use Core\Config\Config;
+use Core\Container\Container;
 use Core\Http\Request;
 use Core\Http\Response;
-use Core\Container\Container;
 use Core\IO\FS\FileLoader;
-use Core\Config\Config;
 use Core\Routing\Route;
-
+use Core\Routing\Router;
 
 class App
 {
-    protected bool $debug = true;
+    protected bool $debug     = true;
     protected array $settings = [];
 
     protected Router $router;
@@ -24,38 +23,30 @@ class App
     {
         $this->container = new Container();
         $this->init();
-        $this->router = $this->container->make(Router::class);
+        $this->router   = $this->container->make(Router::class);
+        $this->settings = $this->container->make(Config::class, "/config")['app'];
+        foreach ($this->settings['aliases'] as $a => $fqn) {
+            $this->container->alias($a, $fqn);
+        }
+        //$this->container->alias();
         $GLOBALS['app'] = $this;
     }
 
     public function init()
     {
         $this->container->singleton(Container::class, $this->container);
-        $this->container->singleton(Request::class, function ($c) {
-            return new Request();
-        });
-        $this->container->singleton(Config::class, function (Container $c, string $dir) {
-            $cfg = new Config("/config");
+        $this->container->singleton(Router::class, Router::class);
+        $this->container->singleton(Request::class, Request::class);
+        $this->container->singleton(Response::class, Response::class);
+        $this->container->singleton(Config::class, function (Container $c) {
+            $cfg = new Config();
             return $cfg->getSettings();
         });
-        $this->container->singleton('config', function () {
-            $configDir = APP_ROOT . "/config";
-            $configs = [];
-            foreach (glob($configDir . '/*.php') as $file) {
-                $key = basename($file, '.php');
-                $configs[$key] = include $file;
-            }
-            return $configs;
-        });
-        $this->container->singleton(Router::class, Router::class);
-        $this->container->singleton(Response::class, function () {
-            return new Response();
-        });
 
+        $this->container->singleton(ViewInit::class, ViewInit::class);
 
         $this->container->singleton(FileLoader::class, function () {
-            $paths = $this->container->make(Config::class, "/config");
-            print_r($paths);
+            $paths = $this->container->make(Config::class)['app']['paths'];
             //$paths = $this->container->make(Config::class)->getSettings()['app3333paths'];
 
             $fl = new FileLoader();
