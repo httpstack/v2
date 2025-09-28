@@ -1,6 +1,6 @@
 <?php
 
-namespace HttpStack\App\Controllers\Middleware;
+namespace App\Controllers\Middleware;
 
 use HttpStack\Session\Session;
 
