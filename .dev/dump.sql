@@ -368,3 +368,49 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2025-09-22 23:27:24
+use stackdb;
+
+INSERT INTO layers (code, name, color)
+VALUES -- 1. Client
+    ('Cl', 'Client', '#4285F4'),
+    -- Browsers, Native Apps
+    -- 2. HTML
+    ('Ht', 'HTML', '#E34C26'),
+    -- 3. CSS
+    ('Cs', 'CSS', '#2965F1'),
+    -- 4. JavaScript
+    ('Js', 'JavaScript', '#F7DF1E'),
+    -- 5. Operating System
+    ('Os', 'Operating System', '#4CAF50'),
+    -- 6. Web/File Server
+    ('Ws', 'Web/File Server', '#A9A9A9'),
+    -- 7. Programming Model
+    ('Pm', 'Programming Model', '#6E4C1E'),
+    -- 8. Data Sources
+    ('Db', 'Data Sources', '#4479A1'),
+    -- 9. Productivity & Admin
+    ('Pa', 'Productivity & Admin', '#9C27B0'),
+    -- 10. Documentation
+    ('Dc', 'Documentation', '#FF9800'),
+    -- 11. Testing
+    ('Te', 'Testing', '#C21325'),
+    -- 12. Deployment & Maintenance
+    ('Dm', 'Deployment & Maintenance', '#2ECC71');
+
+
+    CREATE TABLE `layers` (
+  `layer_id` INT PRIMARY KEY,
+  `layer_name` VARCHAR(50) NOT NULL,
+  `layer_type` ENUM('Architectural', 'Operational') NOT NULL,
+  `icon_code` VARCHAR(5) NOT NULL,
+  `color_hex` VARCHAR(7) NOT NULL,
+  `description` TEXT
+);
+ use stackdb;
+CREATE TABLE layers (
+  layer_id int primary key unsigned NOT NULL AUTO_INCREMENT,
+  layer_name varchar(50) NOT NULL,
+  layer_type enum('Architectural','Operational') NOT NULL,
+  icon_code varchar(5) DEFAULT NULL,
+  description text
+);

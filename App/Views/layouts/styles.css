@@ -375,10 +375,10 @@ section:last-child { margin-bottom: 0; }
             color: var(--color-text);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1;
             overflow-x: hidden;
             background: linear-gradient(-45deg, #111827, #1f2937, #111827, #3730a3);
-            background-size: 400% 400%;
+            background-size: 400% 100%;
             animation: gradientBG 20s ease infinite;
         }
 

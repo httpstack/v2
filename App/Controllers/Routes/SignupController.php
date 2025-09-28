@@ -14,7 +14,7 @@ class SignupController
     public function index(Container $c)
     {
         $req = $c->make(Request::class);
-        dd($c->make(FileLoader::class));
+        // dd($c->make(FileLoader::class));
         echo $req->getMethod();
     }
 

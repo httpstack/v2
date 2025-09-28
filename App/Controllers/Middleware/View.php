@@ -6,17 +6,23 @@ use Core\Container\Container;
 use Core\Config\Config;
 use Core\IO\FS\FileLoader;
 
+use Core\Http\Request;
+use Core\Http\Response;
+use Core\Template\Template;
+
 class View
 {
+    public Request $request;
+    public Response $response;
+    public Template $template;
+
+    protected array $settings = [];
     public function process(Container $c)
     {
         $cfg = $c->make(Config::class);
-        $fl = $c->make(FileLoader::class);
-        //print_r($cfg);
-        //config for paths
-        //fileloader
-        //template
-        //dbconnection
-
+        $this->template = $c->make(Template::class, $c);
+        $this->response = $c->make(Response::class);
+        $this->response->setHeader("Content-Type:", "text/html");
+        $c->singleton(View::class, $this);
     }
 }

@@ -4,7 +4,7 @@ $settings = [
         "base" => "base.html",
         "data" => "/data",
         "assetTypes" => ["js", "css", "woff", "woff2", "otf", "ttf", "jpg"],
-        "basePath" => APP_ROOT . "/Views/templates/bse.html",
+        "basePath" => APP_ROOT . "/Views/layouts/bse.html",
     ],
     "paths" => [
         "config" => APP_ROOT . "/config",
@@ -17,9 +17,9 @@ $settings = [
         "logs" => APP_ROOT . "/logs",
     ],
     "aliases" => [
-            "ctrl.mw.session" => App\Controllers\Middleware\SessionController::class,
-            "ctrl.mw.initview" => App\Controllers\Middleware\View::class,
-            "ctrl.rte.home" => App\Controllers\Routes\HomeController::class,
+        "ctrl.mw.session" => App\Controllers\Middleware\SessionController::class,
+        "ctrl.mw.initview" => App\Controllers\Middleware\View::class,
+        "ctrl.rte.home" => App\Controllers\Routes\HomeController::class,
     ]
 ];
 return $settings;

@@ -1,7 +1,8 @@
 <?php
+
 namespace App;
 
-use App\Controllers\Middleware\View as ViewInit;
+use App\Controllers\Middleware\View;
 use Core\Config\Config;
 use Core\Container\Container;
 use Core\Http\Request;
@@ -9,6 +10,7 @@ use Core\Http\Response;
 use Core\IO\FS\FileLoader;
 use Core\Routing\Route;
 use Core\Routing\Router;
+use Core\Template\Template;
 
 class App
 {
@@ -22,6 +24,8 @@ class App
     public function __construct(Request $request)
     {
         $this->container = new Container();
+        //bind the Request::class to the instance passed in
+        $this->container->singleton(Request::class, $request);
         $this->init();
         $this->router   = $this->container->make(Router::class);
         $this->settings = $this->container->make(Config::class, "/config")['app'];
@@ -43,7 +47,7 @@ class App
             return $cfg->getSettings();
         });
 
-        $this->container->singleton(ViewInit::class, ViewInit::class);
+        $this->container->singleton(View::class, View::class);
 
         $this->container->singleton(FileLoader::class, function () {
             $paths = $this->container->make(Config::class)['app']['paths'];
@@ -55,6 +59,15 @@ class App
             }
             return $fl;
             /* */
+        });
+
+        $this->container->singleton(Template::class, function (Container $c) {
+            $fl = $c->make(FileLoader::class);
+            $p = $fl->findFile("base/index", null, "html");
+            $tpl = new Template($c);
+            $tpl->loadTemplate("layout", $p);
+            $tpl->installTemplate("layout");
+            return $tpl;
         });
     }
     public function before($method, $uri, $handle)
