@@ -1,30 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HttpStack - The Future of Development Stacks</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet" />
+    <title>HttpStack.tech</title>
 
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/assets/enabled/css/base.styles.css">
 </head>
 
 <body>
-    <div class="app">
-        <div class="app-header">
-            <div class="logo">HttpStack</div>
-            <i class="menu-icon">☰</i>
-            <ul class="nav">
-                <li><a href="#problem">Problem</a></li>
-                <li><a href="#solution">Solution</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#get-started" class="cta">Get Started</a></li>
-            </ul>
-        </div>
-        <div id="content" data-view="view"></div>
+    <!-- App Frame -->
+    <div class="app-frame">
+        <!-- Header -->
+        <header class="frame-header">
+            <div class="header-brand">
+                <i class="bi bi-boxes animated-icon"></i>
+                <span class="brand-title">HttpStack</span>
+                <span class="brand-slogan">Stacks that Work</span>
+            </div>
+            <i id="content"></i>
+            <div class="header-controls">
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
+                    <i class="bi bi-sun theme-icon-sun"></i>
+                    <i class="bi bi-moon theme-icon-moon"></i>
+                </button>
+                <button id="hamburger" class="hamburger-menu" aria-label="Toggle Menu">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            <nav id="mainNav" class="header-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="#stacks" class="nav-link">Stacks</a></li>
+                    <li class="nav-item"><a href="#elements" class="nav-link">Elements</a></li>
+                    <li class="nav-item"><a href="#contribute" class="nav-link">Contribute</a></li>
+                    <li class="nav-item"><a href="#fiddle" class="nav-link">Stack Tool</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="home" class="frame-hero">
+            <div class="hero-content">
+                <h1>HttpStack: A Documentation Hub for Stacks and Technologies</h1>
+                <p>
+                    Every stack is more than a buzzword. At HttpStack, stacks are documented, critiqued,
+                    and verified by developers. Each technology within them is documented individually too,
+                    giving you a knowledge base you can actually use in the real world.
+                </p>
+                <a href="#stacks" class="hero-cta">Explore Stacks</a>
+            </div>
+        </section>
+
+        <!-- Stacks Section -->
+        <main class="frame-main">
+            <section id="stacks" class="frame-view card-layout">
+                <h2>Documented Stacks</h2>
+                <p>
+                    Propose, document, and verify stacks — from industry standards like LAMP or MERN,
+                    to wild experiments like Angular + IIS + PostgreSQL. Color bands deepen as documentation grows,
+                    showing you at a glance how complete a stack’s picture is.
+                </p>
+            </section>
+
+            <!-- Elements Section -->
+            <section id="elements" class="frame-view card-layout">
+                <h2>Documented Elements</h2>
+                <p>
+                    Each technology — Ubuntu, Perl, MongoDB, Nginx, Angular — has its own page. These aren’t static
+                    blurbs.
+                    They aggregate all the Q&A about that tech across stacks. You can read every answer,
+                    or let the AI generate a <strong>gisted summary</strong> (short form) or a
+                    <strong>verbose workflow</strong> (step-by-step guidance) for that technology.
+                </p>
+            </section>
+
+            <!-- Contribute Section -->
+            <section id="contribute" class="frame-view card-layout">
+                <h2>Contribute as a Developer</h2>
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h3><i class="bi bi-plus-circle"></i> Propose</h3>
+                        <p>Suggest new stacks, even unconventional ones. They’ll be documented and tested.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h3><i class="bi bi-people"></i> Answer</h3>
+                        <p>Contribute answers to stack and technology questions. The more input, the better the picture.
+                        </p>
+                    </div>
+                    <div class="highlight-card">
+                        <h3><i class="bi bi-check2-circle"></i> Verify</h3>
+                        <p>Set up stacks, test them, and record the outcome. Add proof links like repos or demos.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fiddle Section -->
+            <section id="fiddle" class="frame-view card-layout">
+                <h2>Front-End Stack Tool</h2>
+                <p>
+                    Experiment live with HTML, CSS, and JS using our built-in stack tool. Save, remix,
+                    and share your mini-stacks like JSFiddle — but tied directly to technologies and layers
+                    in HttpStack. Download as zip and use as templates for projects, demos, or guides.
+                </p>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer id="contact" class="frame-footer">
+            <div class="footer-content">
+                <div class="footer-function">
+                    <p><a href="mailto:info@httpstack.tech" class="nav-link">Contact Us</a></p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 HttpStack.tech. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- JS -->
+    <script src="/public/assets/enabled/js/base.scripts.js"></script>
 </body>
 
 </html>

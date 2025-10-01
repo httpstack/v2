@@ -20,6 +20,7 @@ $settings = [
         "ctrl.mw.session" => App\Controllers\Middleware\SessionController::class,
         "ctrl.mw.initview" => App\Controllers\Middleware\View::class,
         "ctrl.rte.home" => App\Controllers\Routes\HomeController::class,
+        "ctrl.rte.layers" => App\Controllers\Routes\LayersController::class,
     ]
 ];
 return $settings;

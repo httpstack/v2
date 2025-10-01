@@ -11,6 +11,7 @@ $req = new Request();
 $app = new App($req);
 $app->before("GET", "*", ['App\Controllers\Middleware\View', 'process']);
 $app->get('/home', ['ctrl.rte.home', 'index']);
-$app->get('/signup', ['App\Controllers\Routes\SignupController', 'index']);
-$app->post('/signup', ['App\Controllers\Routes\SignupController', 'index']);
+
+$app->get('/layers', ['ctrl.rte.layers', 'layers']);
+$app->get('/layers/:layerID', ['ctrl.rte.layers', 'id']);
 $app->run();

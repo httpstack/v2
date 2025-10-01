@@ -84,16 +84,9 @@ class Router
          */
         if (isset($this->before[$method])) {
             foreach ($this->before[$method] as $pattern => $handlers) {
-                // Convert {param} to regex
-                $regex = preg_replace('/\{\w+\}/', '([^/]+)', $pattern);
-                // Convert wildcard * to regex
-                $regex = str_replace('*', '.*', $regex);
-                // Allow full match for .*
-                if ($regex === '.*') {
-                    $regex = '.*';
-                }
-                $matches = [];
-                if (preg_match("#^$regex$#", $uri)) {
+                // Match pattern (supports :param and {param}) and extract named params into $matches
+                $matches = $this->matchAndExtract($pattern, $uri);
+                if ($matches !== false) {
                     foreach ($handlers as $middleware) {
                         if (is_array($middleware)) {
                             list($className, $methodName) = $middleware;
@@ -112,25 +105,67 @@ class Router
          * LOOP WARES
          * 
          */
-        foreach ($this->after[$method] as $pattern => $handlers) {
-            $matches = [];
-            $regex = preg_replace('/\{\w+\}/', '([^/\/]+)', $pattern);
-
-            if (preg_match("#$regex#", $request->getUri(), $matches)) {
-                foreach ($handlers as $afterWare) {
-                    if (is_array($afterWare)) {
-                        list($className, $methodName) = $afterWare;
-                        $instance = new $className();
-                        $callable = [$instance, $methodName];
-                    } else {
-                        $callable = $afterWare;
+        if (isset($this->after[$method])) {
+            foreach ($this->after[$method] as $pattern => $handlers) {
+                $matches = $this->matchAndExtract($pattern, $request->getUri());
+                if ($matches !== false) {
+                    foreach ($handlers as $afterWare) {
+                        if (is_array($afterWare)) {
+                            list($className, $methodName) = $afterWare;
+                            $instance = new $className();
+                            $callable = [$instance, $methodName];
+                        } else {
+                            $callable = $afterWare;
+                        }
+                        call_user_func_array($callable, [$c, $matches]);
                     }
-                    call_user_func_array($callable, [$c, $matches]);
-                }
-                //$container->call($this->after[$method][$key], [$request, $response, $container, $matches]);
+                    //$container->call($this->after[$method][$key], [$request, $response, $container, $matches]);
 
+                }
             }
         }
+    }
+
+    /**
+     * Match a route pattern against a URI and extract named parameters.
+     * Supports :name and {name} placeholders and wildcard *.
+     * Returns false when no match, or the $matches array (numeric + named keys) on success.
+     */
+    private function matchAndExtract(string $pattern, string $uri)
+    {
+        $paramNames = [];
+        $index = 0;
+        // Replace placeholders with temporary tokens and capture names
+        $patternWithTokens = preg_replace_callback('/:(\w+)|\{(\w+)\}/', function ($m) use (&$paramNames, &$index) {
+            $name = $m[1] ?? $m[2];
+            $paramNames[] = $name;
+            return '___PARAM' . $index++ . '___';
+        }, $pattern);
+
+        // Escape the rest of the pattern for regex safety
+        $escaped = preg_quote($patternWithTokens, '#');
+
+        // Replace tokens with capture groups
+        for ($i = 0; $i < $index; $i++) {
+            $escaped = str_replace('___PARAM' . $i . '___', '([^/]+)', $escaped);
+        }
+
+        // Allow wildcard * -> .*
+        $escaped = str_replace('\*', '.*', $escaped);
+
+        $regex = '#^' . $escaped . '$#';
+        $matches = [];
+        if (!preg_match($regex, $uri, $matches)) {
+            return false;
+        }
+
+        // Add named keys mapping to the captured groups (preserve numeric keys too)
+        for ($i = 0; $i < count($paramNames); $i++) {
+            $name = $paramNames[$i];
+            $matches[$name] = $matches[$i + 1] ?? null;
+        }
+
+        return $matches;
     }
 
     public function getRoutes()

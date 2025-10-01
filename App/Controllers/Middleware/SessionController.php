@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Middleware;
 
-use HttpStack\Session\Session;
+use Core\Session\Session;
 
 class SessionController
 {

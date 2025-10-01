@@ -41,7 +41,7 @@ class App
         $this->container->singleton(Container::class, $this->container);
         $this->container->singleton(Router::class, Router::class);
         $this->container->singleton(Request::class, Request::class);
-        $this->container->singleton(Response::class, Response::class);
+        $this->container->bind(Response::class, Response::class);
         $this->container->singleton(Config::class, function (Container $c) {
             $cfg = new Config();
             return $cfg->getSettings();
@@ -70,10 +70,11 @@ class App
             return $tpl;
         });
     }
-    public function before($method, $uri, $handle)
+    public function before($method, $uri, $handle): static
     {
         $rte = new Route($method, $uri, $handle, "mw");
         $this->router->before($rte);
+        return $this;
     }
     public function get(string $uri, array $handle)
     {

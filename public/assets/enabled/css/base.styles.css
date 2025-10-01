@@ -1,0 +1,234 @@
+/* === Base Variables === */
+:root {
+  --font-size: 16px;
+  --default-font: 'Inter', sans-serif;
+
+  /* Light Theme */
+  --theme-primary: #6a0572;
+  --theme-accent-1: #e67e22;
+  --theme-accent-2: #27ae60;
+
+  --theme-text-main: #2c3e50;
+  --theme-text-light: #f8f9fa;
+
+  --theme-bg-body: #f0f4f7;
+  --theme-bg-card: #ffffff;
+  --theme-bg-header-footer: #34495e;
+
+  --theme-shadow-light: rgba(0, 0, 0, 0.1);
+  --theme-shadow-medium: rgba(0, 0, 0, 0.25);
+
+  --theme-hero-gradient-start: var(--theme-primary);
+  --theme-hero-gradient-end: var(--theme-accent-1);
+}
+
+/* Dark Theme */
+html[data-theme="dark"] {
+  --theme-primary: #bb86fc;
+  --theme-accent-1: #ffab40;
+  --theme-accent-2: #69f0ae;
+
+  --theme-text-main: #e0e0e0;
+  --theme-text-light: #f0f0f0;
+
+  --theme-bg-body: #121212;
+  --theme-bg-card: #1e1e1e;
+  --theme-bg-header-footer: #212121;
+
+  --theme-shadow-light: rgba(0, 0, 0, 0.4);
+  --theme-shadow-medium: rgba(0, 0, 0, 0.6);
+
+  --theme-hero-gradient-start: #3a004a;
+  --theme-hero-gradient-end: #5a2c00;
+}
+
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--default-font);
+  font-size: var(--font-size);
+  background: var(--theme-bg-body);
+  color: var(--theme-text-main);
+  transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
+}
+a { text-decoration: none; color: inherit; }
+
+/* App Frame */
+.app-frame {
+  width: 90%;
+  margin: 0 auto;
+  background: var(--theme-bg-card);
+  border-radius: 12px;
+  box-shadow: 0 15px 40px var(--theme-shadow-medium);
+  overflow: hidden;
+}
+
+/* Header */
+.frame-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--theme-bg-header-footer);
+  padding: 1rem;
+  color: var(--theme-text-light);
+  position: relative;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.brand-title { font-size: 1.5rem; font-weight: bold; }
+.brand-slogan { font-size: 0.9rem; opacity: 0.8; }
+
+/* Gradient Icon */
+.animated-icon {
+  font-size: 2rem;
+  background: linear-gradient(90deg, var(--theme-accent-2), var(--theme-primary), var(--theme-accent-1));
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 6s linear infinite;
+}
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: -200% 50%; }
+}
+
+/* Nav */
+.header-nav {
+  position: absolute;
+  top: 100%;
+  left: 0; right: 0;
+  background: var(--theme-bg-header-footer);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.header-nav.nav-open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.nav-list { list-style: none; width: 100%; text-align: center; }
+.nav-link {
+  display: block;
+  padding: 0.75rem;
+  font-weight: bold;
+  color: var(--theme-text-light);
+  position: relative;
+}
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 0; height: 2px;
+  background: var(--theme-accent-1);
+  transition: width 0.3s, left 0.3s;
+}
+.nav-link:hover::before {
+  width: 100%;
+  left: 0;
+}
+
+/* Controls */
+.header-controls { display: flex; gap: 1rem; }
+.theme-toggle { background: none; border: none; cursor: pointer; font-size: 1.5rem; }
+.hamburger-menu { background: none; border: none; cursor: pointer; font-size: 2rem; color: var(--theme-text-light); }
+
+/* Desktop Nav */
+@media (min-width: 920px) {
+  .header-nav {
+    position: static;
+    flex-direction: row;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    background: none;
+  }
+  .nav-list { display: flex; gap: 1.5rem; }
+  .hamburger-menu { display: none; }
+}
+
+/* Hero */
+.frame-hero {
+  background: linear-gradient(45deg, var(--theme-hero-gradient-start), var(--theme-hero-gradient-end));
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.frame-hero::before,
+.frame-hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  animation: blob 20s infinite;
+}
+.frame-hero::before { width: 250px; height: 250px; top: 10%; left: 10%; }
+.frame-hero::after { width: 150px; height: 150px; bottom: 10%; right: 10%; animation-duration: 25s; }
+@keyframes blob {
+  0% { transform: scale(1) translate(0,0); }
+  50% { transform: scale(1.1) translate(20px,-30px); }
+  100% { transform: scale(1) translate(0,0); }
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-content h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+.hero-content p { font-size: 1.2rem; margin-bottom: 2rem; }
+.hero-cta {
+  background: var(--theme-accent-2);
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+.hero-cta:hover { transform: translateY(-3px); box-shadow: 0 8px 20px var(--theme-shadow-medium); }
+
+/* Sections */
+.frame-main { padding: 2rem; }
+.card-layout {
+  background: var(--theme-bg-card);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px var(--theme-shadow-light);
+  margin-bottom: 2rem;
+}
+.frame-view h2 {
+  color: var(--theme-primary);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--theme-accent-2);
+  padding-bottom: 0.5rem;
+}
+
+/* Contribute Grid */
+.highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 1.5rem;
+}
+.highlight-card {
+  background: var(--theme-bg-card);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--theme-shadow-light);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.highlight-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px var(--theme-shadow-medium); }
+
+/* Footer */
+.frame-footer {
+  background: var(--theme-bg-header-footer);
+  color: var(--theme-text-light);
+  text-align: center;
+  padding: 1rem;
+}
