@@ -4,7 +4,7 @@ $settings = [
         "base" => "base.html",
         "data" => "/data",
         "assetTypes" => ["js", "css", "woff", "woff2", "otf", "ttf", "jpg"],
-        "basePath" => APP_ROOT . "/Views/layouts/bse.html",
+        "basePath" => APP_ROOT . "/Views/layouts/base.html",
     ],
     "paths" => [
         "config" => APP_ROOT . "/config",

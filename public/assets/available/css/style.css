@@ -3,25 +3,25 @@
     /* Base Font Size */
     --font-size: 14px;
     --font-size-rem: calc(var(--font-size) / 16 * 1rem); /* Normalize px to rem */
-    --default-font: 'Segoe UI', sans-serif;
+    --default-font: 'Inter', sans-serif; /* Changed to Inter as per instructions */
     --app-frame-width: 90%; /* Default width for app frame, overridden by media queries */
 
     /* Light Theme Color Palette (Default) */
-    --theme-primary: #7d3c98; /* Deep Violet - main branding color */
-    --theme-accent-1: #f39c12; /* Vibrant Orange-Yellow - for links, CTAs */
-    --theme-accent-2: #80c05a; /* Fresh Green-Yellow - for highlights, checkmarks */
+    --theme-primary: #6a0572; /* Deeper Violet - main branding color */
+    --theme-accent-1: #e67e22; /* Rich Orange - for links, CTAs */
+    --theme-accent-2: #27ae60; /* Emerald Green - for highlights, checkmarks */
 
-    --theme-text-main: #34495e; /* Default text color for body/cards */
-    --theme-text-light: #ecf0f1; /* Text on dark backgrounds (header/footer) */
-    --theme-text-darker: #212529; /* A darker text variant if needed */
+    --theme-text-main: #2c3e50; /* Darker text color for body/cards */
+    --theme-text-light: #f8f9fa; /* Text on dark backgrounds (header/footer) */
+    --theme-text-darker: #1a1a1a; /* A darker text variant if needed */
 
-    --theme-bg-body: #ecf0f1; /* Overall page background */
-    --theme-bg-card: #ffffff; /* Main content card background */
-    --theme-bg-header-footer: #2c3e50; /* Header and footer background */
+    --theme-bg-body: #f0f4f7; /* Light grey-blue for overall page background */
+    --theme-bg-card: #ffffff; /* Pure white for main content card background */
+    --theme-bg-header-footer: #34495e; /* Dark blue-grey for header and footer background */
 
-    --theme-border-subtle: rgba(0, 0, 0, 0.1); /* Subtle border color */
+    --theme-border-subtle: rgba(0, 0, 0, 0.12); /* Slightly stronger subtle border color */
     --theme-shadow-light: rgba(0, 0, 0, 0.1); /* Lighter shadow for inner elements */
-    --theme-shadow-medium: rgba(0, 0, 0, 0.2); /* Stronger shadow for cards */
+    --theme-shadow-medium: rgba(0, 0, 0, 0.25); /* Stronger shadow for cards */
 
     /* Hero Section specific gradients (light mode) */
     --theme-hero-gradient-start: var(--theme-primary);
@@ -37,25 +37,25 @@
 
 /* --- Dark Theme Variables (Overrides for html[data-theme="dark"]) --- */
 html[data-theme="dark"] {
-    --theme-primary: #a367c0; /* Lighter violet for dark mode */
-    --theme-accent-1: #f7b731; /* Slightly brighter orange-yellow */
-    --theme-accent-2: #9fd27c; /* Slightly brighter green-yellow */
+    --theme-primary: #bb86fc; /* Lighter, vibrant violet for dark mode */
+    --theme-accent-1: #ffab40; /* Brighter orange-yellow */
+    --theme-accent-2: #69f0ae; /* Brighter green-yellow */
 
-    --theme-text-main: #ecf0f1; /* Light text for dark backgrounds */
-    --theme-text-light: #f0f8ff; /* Even lighter text on dark backgrounds */
+    --theme-text-main: #e0e0e0; /* Light text for dark backgrounds */
+    --theme-text-light: #f0f0f0; /* Even lighter text on dark backgrounds */
     --theme-text-darker: #cccccc; /* Adjusted for dark mode */
 
-    --theme-bg-body: #242424; /* Very dark grey for overall body */
-    --theme-bg-card: #333333; /* Dark grey for the main content card */
-    --theme-bg-header-footer: #1c2730; /* Even darker blue-grey */
+    --theme-bg-body: #121212; /* Very dark grey for overall body */
+    --theme-bg-card: #1e1e1e; /* Dark grey for the main content card */
+    --theme-bg-header-footer: #212121; /* Even darker blue-grey */
 
-    --theme-border-subtle: rgba(255, 255, 255, 0.1); /* Lighter border for dark mode */
-    --theme-shadow-light: rgba(0, 0, 0, 0.3); /* Shadows can be more pronounced on dark */
-    --theme-shadow-medium: rgba(0, 0, 0, 0.5);
+    --theme-border-subtle: rgba(255, 255, 255, 0.15); /* Lighter border for dark mode */
+    --theme-shadow-light: rgba(0, 0, 0, 0.4); /* Shadows can be more pronounced on dark */
+    --theme-shadow-medium: rgba(0, 0, 0, 0.6);
 
     /* Hero Section specific gradients (dark mode) */
-    --theme-hero-gradient-start: #1a0033; /* Darker primary for hero */
-    --theme-hero-gradient-end: #3d0066; /* Darker accent for hero */
+    --theme-hero-gradient-start: #3a004a; /* Darker primary for hero */
+    --theme-hero-gradient-end: #5a2c00; /* Darker accent for hero */
 
     /* Theme Toggle Icon Colors (for dark mode) */
     --theme-icon-sun-color: rgba(255, 255, 255, 0); /* Sun hidden in dark mode */
@@ -152,6 +152,7 @@ body {
 .app-frame {
     /* `width` and `border` handled by media queries above */
     margin: 0 auto;
+    border:1px solid black;
     padding: 0px; /* Your original padding */
     background-color: var(--theme-bg-card); /* Uses theme-dependent variable */
     border-radius: var(--card-border-radius);
@@ -166,7 +167,7 @@ body {
 /* --- Header Section --- */
 .frame-header {
     background-color: var(--theme-bg-header-footer); /* Uses theme-dependent variable */
-    padding: 1.5rem 2rem;
+    padding: 1rem;
 
     display: flex;
     justify-content: space-between;
@@ -188,12 +189,19 @@ body {
     font-size: 2.2rem;
     color: var(--theme-accent-2); /* Uses theme-dependent variable */
 }
-
+.white-1px-outline {
+  color: black; /* Or whatever your main text color is */
+  text-shadow:
+    -1px -1px 0 #fff, /* Top-left white shadow */
+     1px -1px 0 #fff, /* Top-right white shadow */
+    -1px  1px 0 #fff, /* Bottom-left white shadow */
+     1px  1px 0 #fff; /* Bottom-right white shadow */
+}
 /* --- BS-Icon Live Gradient Effect (Font Icons) --- */
 .animated-icon {
     display: inline-block;
     font-size: 2.2rem;
-    background: linear-gradient(90deg, var(--theme-accent-2) 0%, var(--theme-primary) 50%, var(--theme-accent-1) 100%);
+    background: linear-gradient(90deg, white 0%, grey 50%, var(--theme-accent-1) 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -342,6 +350,7 @@ html[data-theme="dark"] .theme-icon-moon {
     transform: scale(1.1);
 }
 
+
 /* --- Navigation Links --- */
 .header-nav {
     position: absolute; /* Position off-screen by default */
@@ -384,7 +393,7 @@ html[data-theme="dark"] .theme-icon-moon {
     color: var(--theme-text-light); /* Uses theme-dependent variable */
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: .75rem;
     padding: 0.5rem 1rem;
     display: block;
     position: relative;
@@ -415,7 +424,7 @@ html[data-theme="dark"] .theme-icon-moon {
 }
 
 /* --- Desktop Navigation (No Hamburger for >= 768px) --- */
-@media (min-width: 768px) {
+@media (min-width: 920px) {
     .hamburger-menu {
         display: none;
     }
@@ -435,10 +444,12 @@ html[data-theme="dark"] .theme-icon-moon {
     .nav-list {
         display: flex;
         gap: 1.5rem;
+        list-style: none;
         width: auto;
     }
     .nav-item {
         padding: 0;
+        list-style: none;
     }
     .nav-link {
         color: var(--theme-text-light); /* Links remain light on dark header */
@@ -544,7 +555,7 @@ html[data-theme="dark"] .theme-icon-moon {
     75% { transform: translate(-20px, -10px) scale(0.95); border-radius: 30% 70% 50% 50% / 50% 70% 30% 50%; }
     100% { transform: translate(0, 0) scale(1); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
 }
-/*  */
+/* */
 
 
 /* --- Entrance Animations for Hero Content --- */
@@ -620,6 +631,110 @@ html[data-theme="dark"] .theme-icon-moon {
     transition: color 0.3s ease;
 }
 
+.highlight {
+        margin-top: 2.5rem;
+        background-color: var(--theme-bg-body);
+        /* Lighter background for highlights */
+        border-radius: var(--card-border-radius);
+        padding: 2rem;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+        /* Subtle inner shadow */
+        border: 1px solid var(--theme-border-subtle);
+        transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.highlight-card {
+    background-color: var(--theme-bg-card);
+    border-radius: var(--card-border-radius);
+    box-shadow: 0 4px 15px var(--theme-shadow-light);
+    padding: 1.5rem;
+    border: 1px solid var(--theme-border-subtle);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--theme-shadow-medium);
+}
+    .highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.highlight-card {
+    background-color: var(--theme-bg-card);
+    border-radius: var(--card-border-radius);
+    box-shadow: 0 4px 15px var(--theme-shadow-light);
+    padding: 1.5rem;
+    border: 1px solid var(--theme-border-subtle);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--theme-shadow-medium);
+}
+/* --- Services Section Specific Styles --- */
+.services-section {
+    margin-top: 3rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.service-card {
+    background-color: var(--theme-bg-card);
+    border-radius: var(--card-border-radius);
+    box-shadow: 0 5px 15px var(--theme-shadow-light);
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    border: 1px solid var(--theme-border-subtle);
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px var(--theme-shadow-medium);
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    color: var(--theme-primary);
+    margin-bottom: 0.8rem;
+    transition: color 0.3s ease;
+}
+
+.service-card p {
+    font-size: 1rem;
+    color: var(--theme-text-main);
+    margin-bottom: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.service-card .cta-button {
+    display: inline-block;
+    background-color: var(--theme-accent-1);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.service-card .cta-button:hover {
+    background-color: var(--theme-accent-1);
+    filter: brightness(0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+
 
 /* --- Footer --- */
 .frame-footer {
@@ -659,6 +774,149 @@ html[data-theme="dark"] .theme-icon-moon {
     }
 }
 
+
+/* CONTACT PAGE BUTTON SHIT */
+        /* General styling for the cta-button, assuming a default light theme */
+        .cta-button {
+            background-color: #4c1d95; /* A deep purple */
+            color: #ffffff; /* White text for contrast */
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #3f187a; /* A slightly darker purple on hover */
+        }
+    
+        /* The fix for dark mode: override the colors for the cta-button */
+        html[data-theme="dark"] .cta-button {
+            background-color: #8b5cf6; /* A brighter purple for dark mode */
+            color: #1f2937; /* Dark text for high contrast */
+        }
+        
+        html[data-theme="dark"] .cta-button:hover {
+            background-color: #a78bfa; /* A lighter purple on hover for dark mode */
+        }
+
+        /* Styling for the copy feedback message */
+        .copy-feedback {
+            display: none;
+            position: absolute;
+            bottom: 0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 128, 0, 0.8);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Utility for showing the feedback message */
+        .copy-feedback.show {
+            display: block;
+            opacity: 1;
+        }
+
+    /* Prevent body scroll when modal is open */
+    body.no-scroll {
+        overflow: hidden;
+    }
+
+    /* Responsive adjustments for resume page */
+    @media (max-width: 768px) {
+        .highlight-grid {
+            grid-template-columns: 1fr;
+            /* Stack highlights on small screens */
+        }
+
+        .resume-download-section {
+            padding: 1.5rem;
+        }
+
+        .download-form {
+            max-width: 100%;
+        }
+
+        .lightbox-content {
+            width: 95%;
+            height: 95%;
+        }
+    }
+
+
+/*LIGHTBOX CLASSES*/
+/* Initially hide the lightbox */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000; /* Ensure it's on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scrolling if content is too long */
+}
+
+/* The semi-transparent overlay */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
+}
+
+/* The content box */
+.lightbox-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 10% auto; /* Centers the box vertically and horizontally */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Adjust as needed */
+    max-width: 800px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation: fadeIn 0.5s;
+}
+
+/* Close button style */
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Animation for the pop-up */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Style the embedded resume */
+.resume-container {
+    padding-top: 10px; /* Space below the close button */
+}
+
+.resume-container embed {
+    border: none;
+}
 /* --- Utility Classes (Your original ones, just ensuring they use new variables if applicable) --- */
 pre{
   display:flex;
@@ -673,9 +931,3 @@ pre{
 .social-links a:hover {
     color: var(--theme-accent-1); /* Uses theme-dependent variable */
 }
-
-
-
-
-
-/*==CUSTOM HEADER==*/

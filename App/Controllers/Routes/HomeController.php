@@ -24,8 +24,8 @@ class HomeController
         $v = $c->make(View::class);
         $fl = $c->make(FileLoader::class);
         $p = $fl->findFile("home", null, "html");
-        $v->template->loadTemplate('view', $p);
-        $v->template->installView('view', '//*[@id="content"]');
+        $v->template->readTemplate('view', $p);
+        $v->template->loadView('view', '//*[@id="content"]');
         $v->response->setBody($v->template->saveHTML());
         $v->response->send();
     }

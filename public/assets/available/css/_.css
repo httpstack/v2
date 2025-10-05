@@ -5,21 +5,23 @@
     color: var(--text-color);
 }
 .viewport {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto 1fr;
+    display: flex;
     flex-direction: column;
     height: 100%;
-    gap: 0.5rem;
 }
 .viewport .view-heading {
-    padding:.5rem;
-    grid-column:1/4;
+    padding: 10px;
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
+    font-size: 1.2em;
+    font-weight: bold;
 }
 .viewport .view-col {
-  colsp1an: 1;
-  padding: 0.5rem;
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    background-color: var(--col-bg-color);
 }
-.ol{
-    border:1px solid black;
+.viewport .view-col:nth-child(odd) {
+    background-color: var(--odd-col-bg-color);
 }

@@ -11,6 +11,7 @@ use Core\IO\FS\FileLoader;
 use Core\Routing\Route;
 use Core\Routing\Router;
 use Core\Template\Template;
+use Core\Database\DBConnect\DBConnect;
 
 class App
 {
@@ -63,11 +64,21 @@ class App
 
         $this->container->singleton(Template::class, function (Container $c) {
             $fl = $c->make(FileLoader::class);
+            $assetTypes = $this->settings['template']['assetTypes'] ?? [];
+            $assets = $fl->findFilesByExtension($assetTypes);
             $p = $fl->findFile("base/index", null, "html");
             $tpl = new Template($c);
-            $tpl->loadTemplate("layout", $p);
-            $tpl->installTemplate("layout");
+            $tpl->readTemplate("layout", $p);
+            $tpl->loadTemplate("layout");
+            $tpl->setAssets($assets);
+            $tpl->loadAssets();
             return $tpl;
+        });
+        $this->container->singleton(DBConnect::class, function (Container $c) {
+            $db = DBConnect::createFromEnv();
+            //smoke test
+            $db->fetchAll("SELECT 1");
+            return $db;
         });
     }
     public function before($method, $uri, $handle): static
