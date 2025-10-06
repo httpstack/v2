@@ -8,8 +8,8 @@ use \Core\Http\Request;
 use App\App;
 
 $req = new Request();
-$app = new App($req);
-$app->before("GET", "*", ['App\Controllers\Middleware\View', 'process']);
+$app = new App($req); 
+$app->before("GET", "*",1 ['App\Controllers\Middleware\View', 'process']);
 $app->get('/home', ['ctrl.rte.home', 'index']);
 $app->get("/home/verify", ["ctrl.rte.home", "verify"]);
 $app->get("/home/elements", ["ctrl.rte.home", "elements"]);
