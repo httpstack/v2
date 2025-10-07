@@ -377,3 +377,15 @@ html[data-theme="light"] .theme-icon-moon { opacity: 0; transform: translate(-50
     .hero-subtitle { font-size: 1.4rem; }
     .footer-content { flex-direction: column; text-align: center; }
 }
+.info-section-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.2s ease;
+}
+.info-section-link .info-section {
+    transition: background-color 0.3s ease;
+}
+.info-section-link:hover .info-section {
+    background-color: var(--theme-bg-alt); /* Or a slightly different hover color */
+}

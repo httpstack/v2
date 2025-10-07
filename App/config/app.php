@@ -1,26 +1,27 @@
 <?php
 $settings = [
     "template" => [
-        "base" => "base.html",
-        "data" => "/data",
+        "base"       => "base.html",
+        "data"       => "/data",
         "assetTypes" => ["js", "css", "woff", "woff2", "otf", "ttf", "jpg"],
-        "basePath" => APP_ROOT . "/Views/layouts/base.html",
+        "basePath"   => APP_ROOT . "/Views/layouts/base.html",
     ],
-    "paths" => [
-        "config" => APP_ROOT . "/config",
-        "data" => APP_ROOT . "/data",
-        "views" => APP_ROOT . "/Views/routes",
-        "templates" => APP_ROOT . "/Views/layouts",
-        "assets" => DOC_ROOT . "/public/assets/enabled",
+    "paths"    => [
+        "config"       => APP_ROOT . "/config",
+        "data"         => APP_ROOT . "/data",
+        "views"        => APP_ROOT . "/Views/routes",
+        "templates"    => APP_ROOT . "/Views/layouts",
+        "partials"     => APP_ROOT . "/Views/partials",
+        "assets"       => DOC_ROOT . "/public/assets/enabled",
         "vendorAssets" => DOC_ROOT . "/public/assets/enabled/vendor",
-        "routes" => APP_ROOT . "/routes",
-        "logs" => APP_ROOT . "/logs",
+        "routes"       => APP_ROOT . "/routes",
+        "logs"         => APP_ROOT . "/logs",
     ],
-    "aliases" => [
-        "ctrl.mw.session" => App\Controllers\Middleware\SessionController::class,
+    "aliases"  => [
+        "ctrl.mw.session"  => App\Controllers\Middleware\SessionController::class,
         "ctrl.mw.initview" => App\Controllers\Middleware\View::class,
-        "ctrl.rte.home" => App\Controllers\Routes\HomeController::class,
-        "ctrl.rte.layers" => App\Controllers\Routes\LayersController::class,
-    ]
+        "ctrl.rte.home"    => App\Controllers\Routes\HomeController::class,
+        "ctrl.rte.layers"  => App\Controllers\Routes\LayersController::class,
+    ],
 ];
 return $settings;

@@ -1,24 +1,22 @@
 <?php
-
 namespace Core\Template;
 
-use DOMDocument;
-use Core\IO\FS\FileLoader;
-use DOMXPath;
-use DOMNode;
-use DOMElement;
-use DOMDocumentFragment;
 use Core\Config\Config;
+use DOMDocument;
+use DOMDocumentFragment;
+use DOMElement;
+use DOMNode;
+use DOMXPath;
 
 class Template extends DOMDocument
 {
 
-    protected array $settings = [];
+    protected array $settings  = [];
     protected array $templates = [];
-    protected ?DOMXPath $xp = null;
-    protected array $assets = [];
-    protected array $vars = [];
-    protected array $funcs = [];
+    protected ?DOMXPath $xp    = null;
+    protected array $assets    = [];
+    protected array $vars      = [];
+    protected array $funcs     = [];
 
     protected function addFunction($nameSpace, $func)
     {
@@ -32,7 +30,7 @@ class Template extends DOMDocument
     {
         parent::__construct($version, $encoding);
         $this->formatOutput = true; // Optional: makes the output more readable
-        $this->settings[] = $c->make(Config::class);
+        $this->settings[]   = $c->make(Config::class);
     }
     public function setAssets($assets)
     {
@@ -40,7 +38,8 @@ class Template extends DOMDocument
     }
     public function loadAssets()
     {
-        $head = $this->queryOne('//head');
+        $head    = $this->queryOne('//head');
+        $preload = [];
         foreach ($this->assets as $asset) {
             $assetType = pathinfo($asset, PATHINFO_EXTENSION);
             switch ($assetType) {
@@ -48,19 +47,22 @@ class Template extends DOMDocument
                     $element = $this->createElement("link");
                     $element->setAttribute("rel", "stylesheet");
                     $element->setAttribute("href", $asset);
+                    $head->appendChild($element);
                     break;
                 case "js":
                     $element = $this->createElement("script");
                     $element->setAttribute("src", $asset);
                     $element->setAttribute("defer", "defer");
                     $element->setAttribute("type", "text/javascript");
+                    $head->appendChild($element);
                     break;
 
                 case "svg":
                 case "png":
                 case "jpg":
                 case "jpeg":
-                case  "gif":
+                case "gif":
+                    $preload[] = $asset;
                     //make javascript image preloader
                     break;
 
@@ -71,15 +73,15 @@ class Template extends DOMDocument
                 case 'eot':
                     // collect fonts and add preload hint
                     $fontAssets[] = $asset;
-                    $pre = $this->createElement('link');
-                    $pre->setAttribute('rel', 'preload');
-                    $pre->setAttribute('as', 'font');
-                    $pre->setAttribute('href', $asset);
-                    $pre->setAttribute('crossorigin', 'anonymous');
-                    $head->appendChild($pre);
+                    $element      = $this->createElement('link');
+                    $element->setAttribute('rel', 'preload');
+                    $element->setAttribute('as', 'font');
+                    $element->setAttribute('href', $asset);
+                    $element->setAttribute('crossorigin', 'anonymous');
+                    $head->appendChild($element);
                     break;
             }
-            $head->appendChild($element);
+
         }
         $this->setXPath();
     }
@@ -97,7 +99,7 @@ class Template extends DOMDocument
     public function loadView($namespace, $xpath)
     {
         if (isset($this->templates[$namespace])) {
-            $xp = new DOMXPath($this);
+            $xp        = new DOMXPath($this);
             $container = $xp->query($xpath)->item(0);
             if ($container) {
                 $view = $this->createDocumentFragment();
@@ -113,14 +115,23 @@ class Template extends DOMDocument
     public function make($element, $attrs = [], $text = null)
     {
         $el = $this->createElement($element);
-        foreach ($attrs as $k => $v) $el->setAttribute($k, (string)$v);
-        if ($text !== null) $el->appendChild($this->createTextNode($text));
+        foreach ($attrs as $k => $v) {
+            $el->setAttribute($k, (string) $v);
+        }
+
+        if ($text !== null) {
+            $el->appendChild($this->createTextNode($text));
+        }
+
         return $el;
     }
 
     protected function map(?DOMDocument $dom)
     {
-        if ($dom === null) return $this->xp;
+        if ($dom === null) {
+            return $this->xp;
+        }
+
         $this->xp = new DOMXPath($dom);
     }
     public function byClass($class)
@@ -138,7 +149,6 @@ class Template extends DOMDocument
         return $list ? $list->item(0) : null;
     }
 
-
     public function queryAll(string $xpath): ?\DOMNodeList
     {
         return $this->xp->query($xpath);
@@ -150,8 +160,6 @@ class Template extends DOMDocument
         return $list ? $list->item(0) : null;
     }
 
-
-
     public function setXPath(): void
     {
         $this->xp = new DOMXPath($this);
@@ -162,35 +170,46 @@ class Template extends DOMDocument
         return isset($this->xp) && $this->xp instanceof DOMXPath;
     }
 
-
     // set single attribute
-    public function setAttr(DOMNode|string $target, string $name, string $value): bool
+    public function setAttr(DOMNode | string $target, string $name, string $value): bool
     {
         $node = $this->queryOne($target);
-        if (! $node || !($node instanceof DOMElement)) return false;
+        if (! $node || ! ($node instanceof DOMElement)) {
+            return false;
+        }
+
         $node->setAttribute($name, $value);
         return true;
     }
 
     // set multiple attributes from assoc array
-    public function setAttrs(DOMNode|string $target, array $attrs): bool
+    public function setAttrs(DOMNode | string $target, array $attrs): bool
     {
         $node = $this->get($target);
-        if (! $node || !($node instanceof DOMElement)) return false;
+        if (! $node || ! ($node instanceof DOMElement)) {
+            return false;
+        }
+
         foreach ($attrs as $k => $v) {
-            $node->setAttribute($k, (string)$v);
+            $node->setAttribute($k, (string) $v);
         }
         return true;
     }
 
     // set textContent (for elements) or nodeValue (for other nodes)
-    public function setText(DOMNode|string $target, string $text): bool
+    public function setText(DOMNode | string $target, string $text): bool
     {
         $node = $this->get($target);
-        if (! $node) return false;
+        if (! $node) {
+            return false;
+        }
+
         if ($node instanceof DOMElement) {
             // remove children then set text
-            while ($node->firstChild) $node->removeChild($node->firstChild);
+            while ($node->firstChild) {
+                $node->removeChild($node->firstChild);
+            }
+
             $node->appendChild($this->createTextNode($text));
         } else {
             $node->nodeValue = $text;
@@ -199,11 +218,17 @@ class Template extends DOMDocument
     }
 
     // replace inner HTML of an element (fragFrom string)
-    public function setHtml(DOMNode|string $target, string $html): bool
+    public function setHtml(DOMNode | string $target, string $html): bool
     {
         $node = $this->get($target);
-        if (! $node || !($node instanceof DOMElement)) return false;
-        while ($node->firstChild) $node->removeChild($node->firstChild);
+        if (! $node || ! ($node instanceof DOMElement)) {
+            return false;
+        }
+
+        while ($node->firstChild) {
+            $node->removeChild($node->firstChild);
+        }
+
         $frag = $this->createDocumentFragment();
         // suppress warnings for malformed fragments
         @$frag->appendXML($html);
@@ -212,10 +237,13 @@ class Template extends DOMDocument
     }
 
     // append HTML fragment into target
-    public function appendHtml(DOMNode|string $target, string $html): bool
+    public function appendHtml(DOMNode | string $target, string $html): bool
     {
         $node = $this->get($target);
-        if (! $node || !($node instanceof DOMElement)) return false;
+        if (! $node || ! ($node instanceof DOMElement)) {
+            return false;
+        }
+
         $frag = $this->createDocumentFragment();
         @$frag->appendXML($html);
         $node->appendChild($frag);
@@ -223,37 +251,52 @@ class Template extends DOMDocument
     }
 
     // create and append an element with optional attrs and text
-    public function add(DOMNode|string $parent, string $tag, array $attrs = [], ?string $text = null): ?DOMElement
+    public function add(DOMNode | string $parent, string $tag, array $attrs = [], ?string $text = null): ?DOMElement
     {
         $p = $this->queryOne($parent);
-        if (! $p || !($p instanceof DOMElement)) return null;
+        if (! $p || ! ($p instanceof DOMElement)) {
+            return null;
+        }
+
         $el = $this->createElement($tag);
-        foreach ($attrs as $k => $v) $el->setAttribute($k, (string)$v);
-        if ($text !== null) $el->appendChild($this->createTextNode($text));
+        foreach ($attrs as $k => $v) {
+            $el->setAttribute($k, (string) $v);
+        }
+
+        if ($text !== null) {
+            $el->appendChild($this->createTextNode($text));
+        }
+
         $p->appendChild($el);
         return $el;
     }
 
     // create fragment from file and append to target
-    public function appendFromFile(DOMNode|string $target, string $path): bool
+    public function appendFromFile(DOMNode | string $target, string $path): bool
     {
-        if (!is_readable($path)) return false;
+        if (! is_readable($path)) {
+            return false;
+        }
+
         $frag = $this->createDocumentFragment();
         @$frag->appendXML(file_get_contents($path));
         return $this->appendFragTo($target, $frag);
     }
 
     // append a fragment to target node
-    public function appendFragTo(DOMNode|string $target, DOMDocumentFragment $frag): bool
+    public function appendFragTo(DOMNode | string $target, DOMDocumentFragment $frag): bool
     {
         $node = $this->get($target);
-        if (! $node) return false;
+        if (! $node) {
+            return false;
+        }
+
         $node->appendChild($frag);
         return true;
     }
 
     // remove node(s) by DOMNode or XPath selector
-    public function remove(DOMNode|string $target): int
+    public function remove(DOMNode | string $target): int
     {
         if ($target instanceof DOMNode) {
             $parent = $target->parentNode;
@@ -264,7 +307,7 @@ class Template extends DOMDocument
             return 0;
         }
         // treat string as xpath and remove all matches
-        $list = $this->queryAll($target);
+        $list  = $this->queryAll($target);
         $count = 0;
         if ($list) {
             foreach (iterator_to_array($list) as $n) {
@@ -277,8 +320,6 @@ class Template extends DOMDocument
         return $count;
     }
 
-
-
     // quick check whether a string contains HTML markup
     public function isHTML(string $str): bool
     {
@@ -289,11 +330,14 @@ class Template extends DOMDocument
     public function xpath2css(string $xpath): string
     {
         $xpath = trim($xpath);
-        if ($xpath === '') return '';
+        if ($xpath === '') {
+            return '';
+        }
+
         preg_match_all('#(//?)([^/]+)#', $xpath, $matches, PREG_SET_ORDER);
         $parts = [];
         foreach ($matches as $i => $m) {
-            $sep = $m[1] === '//' ? ' ' : ' > ';
+            $sep     = $m[1] === '//' ? ' ' : ' > ';
             $segment = $m[2];
             if (preg_match('#^([a-zA-Z0-9_\*\-:]+)#', $segment, $pm)) {
                 $tag = $pm[1];
@@ -310,10 +354,16 @@ class Template extends DOMDocument
                 }
                 if (preg_match('#^@([a-zA-Z0-9_\-:]+)\s*=\s*\'([^\']*)\'$#', $pred, $pm2)) {
                     $attr = $pm2[1];
-                    $val = $pm2[2];
-                    if ($attr === 'id') $selector .= '#' . $val;
-                    elseif ($attr === 'class') {
-                        foreach (preg_split('/\s+/', trim($val)) as $c) if ($c !== '') $selector .= '.' . $c;
+                    $val  = $pm2[2];
+                    if ($attr === 'id') {
+                        $selector .= '#' . $val;
+                    } elseif ($attr === 'class') {
+                        foreach (preg_split('/\s+/', trim($val)) as $c) {
+                            if ($c !== '') {
+                                $selector .= '.' . $c;
+                            }
+                        }
+
                     } else {
                         $selector .= '[' . $attr . '="' . addcslashes($val, '"') . '"]';
                     }
@@ -321,14 +371,21 @@ class Template extends DOMDocument
                 }
                 if (preg_match("#contains\\(concat\\(' ',\\s*normalize-space\\(@class\\),\\s*' '\\),\\s*'([^']+)'\\)#", $pred, $pm3)) {
                     $cls = trim($pm3[1]);
-                    if ($cls !== '') $selector .= '.' . $cls;
+                    if ($cls !== '') {
+                        $selector .= '.' . $cls;
+                    }
+
                     continue;
                 }
                 if (preg_match("#contains\\(@([a-zA-Z0-9_\-:]+),\\s*'([^']+)'\\)#", $pred, $pm4)) {
                     $attr = $pm4[1];
-                    $val = $pm4[2];
-                    if ($attr === 'class') $selector .= '.' . trim($val);
-                    else $selector .= '[' . $attr . '*="' . addcslashes($val, '"') . '"]';
+                    $val  = $pm4[2];
+                    if ($attr === 'class') {
+                        $selector .= '.' . trim($val);
+                    } else {
+                        $selector .= '[' . $attr . '*="' . addcslashes($val, '"') . '"]';
+                    }
+
                     continue;
                 }
                 if (preg_match('#^@([a-zA-Z0-9_\-:]+)$#', $pred, $pm5)) {
@@ -340,8 +397,12 @@ class Template extends DOMDocument
                     continue;
                 }
             }
-            if ($i === 0) $parts[] = $selector;
-            else $parts[] = $sep . $selector;
+            if ($i === 0) {
+                $parts[] = $selector;
+            } else {
+                $parts[] = $sep . $selector;
+            }
+
         }
         $css = trim(implode('', $parts));
         return preg_replace('/\s+/', ' ', $css);
@@ -351,12 +412,18 @@ class Template extends DOMDocument
     public function css2xpath(string $css): string
     {
         $css = trim($css);
-        if ($css === '') return '';
-        $tokens = preg_split('/(\s*>\s*|\s+)/', $css, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+        if ($css === '') {
+            return '';
+        }
+
+        $tokens     = preg_split('/(\s*>\s*|\s+)/', $css, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         $xpathParts = [];
         foreach ($tokens as $tok) {
             $tok = trim($tok);
-            if ($tok === '') continue;
+            if ($tok === '') {
+                continue;
+            }
+
             if ($tok === '>') {
                 $xpathParts[] = '/';
                 continue;
@@ -367,8 +434,8 @@ class Template extends DOMDocument
             }
             preg_match_all('#([a-zA-Z0-9\*_\-:]+|#[a-zA-Z0-9_\-]+|\.[a-zA-Z0-9_\-]+|\[[^\]]+\]|:[a-zA-Z0-9\-\(\)]+)#', $tok, $m);
             $segments = $m[0];
-            $tag = '*';
-            $conds = [];
+            $tag      = '*';
+            $conds    = [];
             foreach ($segments as $s) {
                 if ($s === '*') {
                     $tag = '*';
@@ -408,7 +475,7 @@ class Template extends DOMDocument
                     }
                 }
             }
-            $condStr = count($conds) ? '[' . implode(' and ', $conds) . ']' : '';
+            $condStr      = count($conds) ? '[' . implode(' and ', $conds) . ']' : '';
             $xpathParts[] = ($tag ?: '*') . $condStr;
         }
         $xpath = '';

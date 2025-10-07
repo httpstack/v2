@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Explore httpstack's 12-Layer 'Stack Spec' System.">
+    <meta property="og:title" content="httpstack - Stack Spec">
+    <meta property="og:description" content="Explore httpstack's 12-Layer 'Stack Spec' System.">
+    <title>httpstack - Stack Spec</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/src/index.css" />
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 font-sans">
+    <header class="sticky top-0 z-50 transition-shadow duration-300" id="header">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2 text-2xl font-bold text-gray-800 dark:text-white hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-500 dark:text-cyan-400"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                <span>httpstack</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/" class="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Home</a>
+                <a href="/stack-spec.html" class="text-lg font-medium text-cyan-500 dark:text-cyan-400">Stack Spec</a>
+                <a href="/services.html" class="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Services</a>
+                <a href="/resume.html" class="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors">Resume</a>
+            </div>
+            <div class="flex items-center gap-2">
+                 <div class="hidden md:flex items-center gap-2">
+                    <a href="/login.html" class="px-4 py-2 rounded-md text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Login</a>
+                    <a href="/register.html" class="px-4 py-2 rounded-md bg-cyan-500 hover:bg-cyan-600 text-white font-semibold transition-colors">Register</a>
+                </div>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <svg id="theme-icon-sun" class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="theme-icon-moon" class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="p-2 rounded-md">
+                        <svg id="menu-open-icon" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        <svg id="menu-close-icon" class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 p-4">
+            <a href="/" class="block py-2 text-center text-gray-600 dark:text-gray-300 hover:text-cyan-500">Home</a>
+            <a href="/stack-spec.html" class="block py-2 text-center text-gray-600 dark:text-gray-300 hover:text-cyan-500">Stack Spec</a>
+            <a href="/services.html" class="block py-2 text-center text-gray-600 dark:text-gray-300 hover:text-cyan-500">Services</a>
+            <a href="/resume.html" class="block py-2 text-center text-gray-600 dark:text-gray-300 hover:text-cyan-500">Resume</a>
+            <div class="border-t border-gray-200 dark:border-gray-700 mt-4 pt-4 flex flex-col items-center gap-4">
+                <a href="/login.html" class="w-full text-center px-4 py-2 rounded-md text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Login</a>
+                <a href="/register.html" class="w-full text-center px-4 py-2 rounded-md bg-cyan-500 hover:bg-cyan-600 text-white font-semibold transition-colors">Register</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-16">
+        <section class="text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
+                The 12-Layer 'Stack Spec' System
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-16">
+                We categorize your stack into two distinct types for clarity and power: the core running application and the processes that support it.
+            </p>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-cyan-500 dark:text-cyan-400">Architectural Layers (The Runtime Core)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Layer Cards will be injected here by main.js -->
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center text-cyan-500 dark:text-cyan-400">Operational Layers (The Development Lifecycle)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Layer Cards will be injected here by main.js -->
+            </div>
+        </section>
+
+         <section class="bg-gray-200 dark:bg-gray-800/50 border border-purple-500/20 rounded-2xl p-8 md:p-12 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+                Become a Specifier
+            </h2>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-200 max-w-4xl mx-auto">
+                Stop just <span class="font-semibold text-cyan-500 dark:text-cyan-400">using stacks</span>. Start <span class="font-semibold text-cyan-500 dark:text-cyan-400">defining them</span>. A documented stack is a solved problem. A specified stack is an industry standard. This is your invitation to become an architect of the future of web development.
+            </p>
+        </section>
+    </main>
+
+    <footer class="bg-gray-200 dark:bg-gray-950/50 border-t border-gray-300 dark:border-gray-800">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-600 dark:text-gray-400">
+            <p>&copy; 2025 httpstack. All rights reserved.</p>
+            <p class="text-sm mt-1">Connecting Developers, Empowering Businesses.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

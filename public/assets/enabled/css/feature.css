@@ -158,3 +158,115 @@
         margin: 1rem 0;
     }
 }
+
+
+/* === STYLES FOR EXPLORE ELEMENTS PAGE === */
+/* Appended to feature-page.css */
+
+/* Element Card Demo */
+.element-card-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.element-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background-color: var(--theme-bg-alt);
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--theme-border-subtle);
+    border-left: 5px solid var(--layer-color, var(--theme-primary));
+    min-width: 320px;
+    box-shadow: 0 5px 15px var(--theme-shadow-light);
+}
+
+.element-card__symbol {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--layer-color, var(--theme-primary));
+    width: 60px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    background-color: var(--theme-bg-body);
+    border-radius: 8px;
+}
+
+.element-card__info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.element-card__name {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.element-card__version {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.element-card__layer {
+    font-size: 0.9rem;
+    font-weight: 600;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    opacity: 0.6;
+    transform: rotate(180deg);
+}
+
+
+/* Stack Formula Demo */
+.stack-formula-demo {
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 1.2rem;
+    background: var(--theme-bg-body);
+    padding: 1rem;
+    border-radius: 8px;
+}
+.stack-formula-demo code {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: var(--theme-accent-2);
+    padding: 0.2rem 0.5rem;
+}
+.stack-formula-demo .formula-separator {
+    color: var(--theme-text-main);
+    opacity: 0.5;
+    margin: 0 0.5rem;
+}
+
+/* Ordered List Styling */
+.content-container ol {
+    list-style: none;
+    padding-left: 0;
+    counter-reset: ordered-list;
+}
+.content-container ol li {
+    position: relative;
+    padding-left: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    counter-increment: ordered-list;
+}
+.content-container ol li::before {
+    content: counter(ordered-list);
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: var(--theme-accent-1);
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    font-size: 0.9rem;
+}
