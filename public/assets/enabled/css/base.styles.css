@@ -269,6 +269,11 @@ html[data-theme="light"] .theme-icon-moon { opacity: 0; transform: translate(-50
     font-weight: 800;
     margin-bottom: 0.5rem;
 }
+.section-header h2 a{
+    text-decoration-line: none !important;
+    color: var(--theme-text-main);
+    transition: color 0.3s ease;
+}
 .section-header p {
     font-size: 1.1rem;
     max-width: 650px;

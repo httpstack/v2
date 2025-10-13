@@ -13,6 +13,7 @@ $app->before("GET", "*", ['App\Controllers\Middleware\View', 'process']);
 $app->get('/home', ['ctrl.rte.home', 'index']);
 
 $app->get("/home/model", ["ctrl.rte.home", "index"]);
+$app->get("/home/elements", ["ctrl.rte.home", "index"]);
 /*
 $app->get("/home/elements", ["ctrl.rte.home", "elements"]);
 $app->get("/home/specify", ["ctrl.rte.home", "specify"]);

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers\Routes;
 
 use App\Controllers\Middleware\View;
@@ -6,34 +7,44 @@ use Core\Container\Container;
 use Core\Http\Request;
 use Core\Http\Response;
 use Core\IO\FS\FileLoader;
-
+use Core\Database\DBConnect\DBConnect;
 //use Core\Template\Template;
 class HomeController
 {
     protected Container $c;
-    public function __construct()
-    {}
+    protected View $view;
+    protected FileLoader $files;
+    //protected Model $model;
+    public function __construct() {}
     public function index(Container $c, $matches)
     {
-        $this->c = $c;
+        $this->view  = $c->make(View::class);
+        $this->files = $c->make(FileLoader::class);
         $request = $c->make(Request::class);
-        $r       = $request->getUriParts()[count($request->getUriParts()) - 1];
+        $route       = $request->getUriParts()[count($request->getUriParts()) - 1];
         //echo method_exists($this, $r);
-        $this->$r($c, $matches);
+        $this->$route($matches);
+
         //$this->$route($c, $matches);
         //bind the view data to the container so its available
         //within the ViewModel make
 
     }
-    public function home($c, $matches)
+    public function home($matches)
     {
-        $v  = $c->make(View::class);
-        $fl = $c->make(FileLoader::class);
-        $p  = $fl->findFile("home", null, "html");
-        $v->template->readTemplate('view', $p);
-        $v->template->loadView('view', '//*[@data-template="view"]');
-        $v->response->setBody($v->template->saveHTML());
-        $v->response->send();
+        $p  = $this->files->findFile("home", null, "html");
+        $this->view->template->readTemplate('view', $p);
+        $this->view->template->loadView('view', '//*[@data-template="view"]');
+        $this->view->response->setBody($this->view->template->saveHTML());
+        $this->view->response->send();
+    }
+    protected function elements($matches)
+    {
+        $p  = $this->files->findFile("home/elements", null, "html");
+        $this->view->template->readTemplate('view', $p);
+        $this->view->template->loadView('view', '//*[@data-template="view"]');
+        $this->view->response->setBody($this->view->template->saveHTML());
+        $this->view->response->send();
     }
     protected function model($c, $matches)
     {

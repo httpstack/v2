@@ -1,7 +1,9 @@
 <?php
 $body = $this->getElementsByTagName("body")->item(0);
 $head = $this->getElementsByTagName("head")->item(0);
+
 foreach ($assets as $index => $path) {
+    $path = str_replace(DOC_ROOT, "", $path);
     $ext = pathinfo($path, PATHINFO_EXTENSION);
     switch ($ext) {
         case "css":
@@ -30,8 +32,17 @@ foreach ($assets as $index => $path) {
         case "ttf":
         case "otf":
         case "eot":
+            $element = $this->createElement("link");
+            $element->setAttribute("rel", "preload");
+            $element->setAttribute("href", $)
+
             //make javascript font preloader
             break;
     }
     $head->appendChild($script);
 }
+
+
+        $db = $c->make(DBConnect::class);
+        $records = $db->fetchAll("SELECT * FROM layers");
+        //print_r($records);

@@ -1,9 +1,9 @@
 <?php
 define("DOC_ROOT", "/var/www/html");
 define("APP_ROOT", DOC_ROOT . "/App");
-define("BASE_URI", "http://localhost/");
+define("BASE_URI", "/");
 define("CONFIG_DIR", APP_ROOT . "/config");
-
+define("ASSET_URI", "/public/assets/enabled");
 
 //make this into a directroy loop so it get gets all libs from 
 //an array of folders in the file loadder or something

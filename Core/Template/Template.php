@@ -1,4 +1,5 @@
 <?php
+
 namespace Core\Template;
 
 use Core\Config\Config;
@@ -41,20 +42,25 @@ class Template extends DOMDocument
         $head    = $this->queryOne('//head');
         $preload = [];
         foreach ($this->assets as $asset) {
+            $asset = str_replace(DOC_ROOT, '', $asset);
+
             $assetType = pathinfo($asset, PATHINFO_EXTENSION);
             switch ($assetType) {
                 case "css":
                     $element = $this->createElement("link");
                     $element->setAttribute("rel", "stylesheet");
                     $element->setAttribute("href", $asset);
-                    $head->appendChild($element);
+                    //$head->appendChild($element);
                     break;
                 case "js":
                     $element = $this->createElement("script");
+                    $baseName = basename($asset);
+                    if (!str_ends_with($baseName, ".cmp.js")) {
+                        $element->setAttribute("defer", "defer");
+                    }
                     $element->setAttribute("src", $asset);
-                    $element->setAttribute("defer", "defer");
                     $element->setAttribute("type", "text/javascript");
-                    $head->appendChild($element);
+                    //$head->appendChild($element);
                     break;
 
                 case "svg":
@@ -78,10 +84,9 @@ class Template extends DOMDocument
                     $element->setAttribute('as', 'font');
                     $element->setAttribute('href', $asset);
                     $element->setAttribute('crossorigin', 'anonymous');
-                    $head->appendChild($element);
+                    //$head->appendChild($element);
                     break;
             }
-
         }
         $this->setXPath();
     }
@@ -185,7 +190,7 @@ class Template extends DOMDocument
     // set multiple attributes from assoc array
     public function setAttrs(DOMNode | string $target, array $attrs): bool
     {
-        $node = $this->get($target);
+        $node = $this->queryOne($target);
         if (! $node || ! ($node instanceof DOMElement)) {
             return false;
         }
@@ -199,7 +204,7 @@ class Template extends DOMDocument
     // set textContent (for elements) or nodeValue (for other nodes)
     public function setText(DOMNode | string $target, string $text): bool
     {
-        $node = $this->get($target);
+        $node = $this->queryOne($target);
         if (! $node) {
             return false;
         }
@@ -220,7 +225,7 @@ class Template extends DOMDocument
     // replace inner HTML of an element (fragFrom string)
     public function setHtml(DOMNode | string $target, string $html): bool
     {
-        $node = $this->get($target);
+        $node = $this->queryOne($target);
         if (! $node || ! ($node instanceof DOMElement)) {
             return false;
         }
@@ -239,7 +244,7 @@ class Template extends DOMDocument
     // append HTML fragment into target
     public function appendHtml(DOMNode | string $target, string $html): bool
     {
-        $node = $this->get($target);
+        $node = $this->queryOne($target);
         if (! $node || ! ($node instanceof DOMElement)) {
             return false;
         }
@@ -286,7 +291,7 @@ class Template extends DOMDocument
     // append a fragment to target node
     public function appendFragTo(DOMNode | string $target, DOMDocumentFragment $frag): bool
     {
-        $node = $this->get($target);
+        $node = $this->queryOne($target);
         if (! $node) {
             return false;
         }
@@ -363,7 +368,6 @@ class Template extends DOMDocument
                                 $selector .= '.' . $c;
                             }
                         }
-
                     } else {
                         $selector .= '[' . $attr . '="' . addcslashes($val, '"') . '"]';
                     }
@@ -402,7 +406,6 @@ class Template extends DOMDocument
             } else {
                 $parts[] = $sep . $selector;
             }
-
         }
         $css = trim(implode('', $parts));
         return preg_replace('/\s+/', ' ', $css);
