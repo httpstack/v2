@@ -18,19 +18,22 @@
     <header class="site-header">
         <div class="container header-inner">
             <a class="brand" href="/" aria-label="HttpStack home">
-                <i class="bi bi-boxes brand-logo-animated"></i>
-                <span class="brand-text-animated">HttpStack</span>
+                <i class="{{  }} brand-logo-animated"></i>
+                <span class="brand-text-animated">{{appName}}</span>
             </a>
 
             <nav class="main-nav" id="mainNav">
-                <ul class="nav-list">
-                    <li class="nav-item"><a href="#stacks" class="nav-link">Stacks</a></li>
-                    <li class="nav-item"><a href="#elements" class="nav-link">Elements</a></li>
-                    <li class="nav-item"><a href="#contribute" class="nav-link">Contribute</a></li>
-                    <li class="nav-item"><a href="#tool" class="nav-link">Stack Tool</a></li>
+                <ul class="nav-list" data-repeat="links as link">
+                    <li class="nav-item" data-repeat-item="link">
+                        <a href="link[uri]" class="nav-link">link[label]</a>
+                    </li>
                 </ul>
             </nav>
-
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="link[uri]" class="nav-link">link[label]</a>
+                </li>
+            </ul>
             <div class="header-controls">
                 <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
                     <i class="bi bi-sun-fill theme-icon-sun"></i>
@@ -46,14 +49,16 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h1 class="hero-title">Go Beyond Documentation.</h1>
+                <h1 class="hero-title">Go {{myCtrlKey}}Beyond Documentation.</h1>
                 <h2 class="hero-subtitle">Create Living Specifications for Web Stacks.</h2>
+                <h3>{{dateFormat('F Y', 'now')}}</h3>
                 <p class="hero-description">
                     HttpStack is a community-driven hub where developers formally document, test, and verify real-world
                     stacks. From LAMP to ludicrous, every stack gets a spec.
                 </p>
                 <a href="#contribute" class="hero-cta">Become a Specifier</a>
             </div>
+
             <div class="hero-background-blobs"></div>
         </section>
 

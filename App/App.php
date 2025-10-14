@@ -68,6 +68,13 @@ class App
             $assets = $fl->findFilesByExtension($assetTypes);
             $p = $fl->findFile("base/index", null, "html");
             $tpl = new Template($c);
+            $tpl->define("dateFormat", function ($format, $time) {
+                return date($format, strtotime($time));
+            });
+
+            //$tpl->var("links", $links);
+            //add a variable to the template from the app container
+
             $tpl->readTemplate("layout", $p);
             $tpl->loadTemplate("layout");
             $tpl->setAssets($assets);

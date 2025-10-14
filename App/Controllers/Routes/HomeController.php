@@ -22,20 +22,15 @@ class HomeController
         $this->files = $c->make(FileLoader::class);
         $request = $c->make(Request::class);
         $route       = $request->getUriParts()[count($request->getUriParts()) - 1];
-        //echo method_exists($this, $r);
         $this->$route($matches);
-
-        //$this->$route($c, $matches);
-        //bind the view data to the container so its available
-        //within the ViewModel make
-
     }
     public function home($matches)
     {
+        //print_r($this->view->template->getVars());
         $p  = $this->files->findFile("home", null, "html");
         $this->view->template->readTemplate('view', $p);
         $this->view->template->loadView('view', '//*[@data-template="view"]');
-        $this->view->response->setBody($this->view->template->saveHTML());
+        $this->view->response->setBody($this->view->template->render());
         $this->view->response->send();
     }
     protected function elements($matches)

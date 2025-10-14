@@ -1,16 +1,19 @@
 <?php
-namespace HttpStack\Model;
 
-use HttpStack\Model\Concrete\BaseModel;
-use HttpStack\Datasource\Contracts\CRUD;
-use HttpStack\Datasource\AbstractDatasource;
-use HttpStack\Model\Contracts\AttributeState;
+namespace Core\Model;
+
+use Core\Model\Concrete\BaseModel;
+use Core\Datasource\Contracts\CRUD;
+use Core\Datasource\AbstractDatasource;
+use Core\Model\Contracts\AttributeState;
+
 abstract class AbstractModel extends BaseModel
 {
     protected array $states = []; // Stack to hold states
     protected CRUD $datasource; // The datasource for this model
 
-    public function __construct(CRUD $datasource){
+    public function __construct(CRUD $datasource)
+    {
         // Initialize the datasource
         parent::__construct($datasource->read());
         $this->datasource = $datasource; // Initialize the datasource
@@ -62,22 +65,24 @@ abstract class AbstractModel extends BaseModel
     }
      */
     //REWRITE THE METHODS THAT MUTATE THE MODEL SO THEY PUSH THE STATE
-    public function set(string $strKey, mixed $mixValue): void{
+    public function set(string $strKey, mixed $mixValue): void
+    {
         $this->pushState("before_set_{$strKey}");
         parent::set($strKey, $mixValue);
     }
-    public function remove(string $strKey): void{
+    public function remove(string $strKey): void
+    {
         $this->pushState("before_remove_{$strKey}");
         parent::remove($strKey);
     }
-    public function setAll(array $arrData): void{
+    public function setAll(array $arrData): void
+    {
         $this->pushState("before_setAll");
         parent::setAll($arrData);
     }
-    public function clear(): void {
+    public function clear(): void
+    {
         $this->pushState("before_clear");
         parent::clear();
     }
-
 }
-?>

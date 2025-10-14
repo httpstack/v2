@@ -1,0 +1,71 @@
+{
+    "appTitle": "HTTPStack",
+    "appLogo": "free-code-camp",
+    "appCopyright": "© 2025 HttpStack. All rights reserved. A community for developers creating the standards of tomorrow.",
+    "appLinks": [
+        {
+            "label": "Home",
+            "uri": "/home",
+            "": ""
+        },
+        {
+            "label": "About",
+            "uri": "/about",
+            "": ""
+        },
+        {
+            "label": "Contact",
+            "uri": "/contact",
+            "": ""
+        },
+        {
+            "label": "Register",
+            "uri": "/register",
+            "": ""
+        }
+    ],
+    "appFootLinks": [
+        {
+            "label": "",
+            "uri": "",
+            "": ""
+        },
+        {
+            "label": "",
+            "uri": "",
+            "": ""
+        },
+        {
+            "label": "",
+            "uri": "",
+            "": ""
+        },
+        {
+            "label": "",
+            "uri": "",
+            "": ""
+        }
+    ],
+    "appSocialLinks": [
+        {
+            "label": "",
+            "uri": "",
+            "": ""
+        },
+        {
+            "label": "",
+            "uri": "",
+            "": ""
+        },
+        {
+            "label": "",
+            "uri": "",
+            "": ""
+        },
+        {
+            "label": "",
+            "uri": "",
+            "": ""
+        }
+    ]
+}

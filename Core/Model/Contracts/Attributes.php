@@ -1,5 +1,7 @@
 <?php
-namespace HttpStack\Model\Contracts;
+
+namespace Core\Model\Contracts;
+
 interface Attributes
 {
     /**
@@ -58,4 +60,3 @@ interface Attributes
      */
     public function setAll(array $data): void;
 }
-?>

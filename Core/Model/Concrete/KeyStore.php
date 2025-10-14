@@ -1,6 +1,8 @@
 <?php
-namespace HttpStack\Model\Concrete;
-use HttpStack\Model\Contracts\Attributes;
+
+namespace Core\Model\Concrete;
+
+use Core\Model\Contracts\Attributes;
 
 class KeyStore implements Attributes
 {
@@ -176,6 +178,5 @@ class KeyStore implements Attributes
     public function count(): int
     {
         return count($this->data);
-    }   
+    }
 }
-?>
