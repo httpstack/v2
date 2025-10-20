@@ -1,12 +1,16 @@
-<?php 
-namespace HttpStack\Datasource;
-use HttpStack\Abstract\AbstractDatasource;
-use HttpStack\DataBase\DBConnect;
+<?php
 
-class DBDatasource extends \AbstractDatasource {
+namespace Core\Datasource;
+
+use Core\Abstract\AbstractDatasource;
+use Core\DataBase\DBConnect;
+
+class DBDatasource extends \AbstractDatasource
+{
     protected DBConnect $dbConnect;
 
-    public function __construct(DBConnect $dbConnect, string $tableName, bool $readOnly = true) {
+    public function __construct(DBConnect $dbConnect, string $tableName, bool $readOnly = true)
+    {
         parent::__construct($readOnly);
         $this->dbConnect = $dbConnect;
         $this->tableName = $tableName;
@@ -14,13 +18,16 @@ class DBDatasource extends \AbstractDatasource {
 
         $this->rowID = -1;
     }
-    public function setRowID(int $rowID): void {
+    public function setRowID(int $rowID): void
+    {
         $this->rowID = $rowID;
     }
-    public function getRowID(): int {
+    public function getRowID(): int
+    {
         return $this->rowID;
     }
-    public function fetch(string|array|null $key): array {
+    public function fetch(string|array|null $key): array
+    {
         if (is_null($key)) {
             $stmt = $this->pdo->query("SELECT * FROM {$this->tableName}");
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -38,7 +45,8 @@ class DBDatasource extends \AbstractDatasource {
         }
     }
 
-    public function save(array $data): void {
+    public function save(array $data): void
+    {
         if (empty($data)) {
             return;
         }
@@ -58,10 +66,12 @@ class DBDatasource extends \AbstractDatasource {
         }
     }
 
-    public function delete(mixed $var): void {
+    public function delete(mixed $var): void
+    {
         if (is_array($var)) {
             // Delete multiple records
-            $placeholders = implode(',',
+            $placeholders = implode(
+                ',',
                 array_fill(0, count($var), '?')
             );
             $stmt = $this->pdo->prepare("DELETE FROM {$this->tableName} WHERE id IN ({$placeholders})");

@@ -88,7 +88,7 @@ class Template extends DOMDocument
                     $element = $this->createElement("link");
                     $element->setAttribute("rel", "stylesheet");
                     $element->setAttribute("href", $asset);
-                    //$head->appendChild($element);
+                    $head->appendChild($element);
                     break;
                 case "js":
                     $element = $this->createElement("script");
@@ -98,7 +98,7 @@ class Template extends DOMDocument
                     }
                     $element->setAttribute("src", $asset);
                     $element->setAttribute("type", "text/javascript");
-                    //$head->appendChild($element);
+                    $head->appendChild($element);
                     break;
 
                 case "svg":

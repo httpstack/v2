@@ -12,11 +12,13 @@ class BaseModel
     public function __construct(array $initialData = [])
     {
         $this->attributes = new KeyStore();
-
-        ($initialData) ? $this->setAll($initialData) : null;
+        ($initialData) ? $this->fill($initialData) : null;
         //dd($this->attributes);
     }
-
+    public function fill($arrData)
+    {
+        $this->attributes = $arrData;
+    }
     public function set(string $strKey, mixed $mixValue): void
     {
         $this->attributes->set($strKey, $mixValue);
@@ -49,7 +51,9 @@ class BaseModel
 
     public function setAll(array $arrData): void
     {
-        $this->attributes->setAll($arrData);
+        foreach ($arrData as $k => $v) {
+            $this->attributes->set($k, $v);
+        }
     }
 
     public function count(): int

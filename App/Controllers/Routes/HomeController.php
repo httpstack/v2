@@ -21,9 +21,24 @@ class HomeController
         $this->view  = $c->make(View::class);
         $this->files = $c->make(FileLoader::class);
         $request = $c->make(Request::class);
-        $route       = $request->getUriParts()[count($request->getUriParts()) - 1];
+        $route = $request->getUriParts()[count($request->getUriParts()) - 1];
         $this->$route($matches);
     }
+    protected function loadConfig()
+    {
+        // Load navigation
+        $navPath = $this->files->findFile("navigation", "config", "json");
+        $this->navigation = $this->files->parseJsonFile($navPath);
+
+        // Load layers  
+        $layersPath = $this->files->findFile("layers", "config", "json");
+        $this->layers = $this->files->parseJsonFile($layersPath);
+
+        // Pass to template
+        $this->view->template->var('navigation', $this->navigation);
+        $this->view->template->var('layers', $this->layers['layers']);
+    }
+
     public function home($matches)
     {
         //print_r($this->view->template->getVars());

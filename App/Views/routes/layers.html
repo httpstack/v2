@@ -1,0 +1,442 @@
+<div class="layers-overview">
+    <style>
+        .layers-overview {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .architecture-badge {
+            margin-top: 1rem;
+        }
+
+        .badge {
+            background: #333;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 0 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .architecture-intro {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .architecture-types {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .arch-type {
+            padding: 1.5rem;
+            border-radius: 6px;
+        }
+
+        .arch-type.architectural {
+            background: rgba(173, 219, 230, 0.1);
+            border-left: 4px solid #ADDBE6;
+        }
+
+        .arch-type.operational {
+            background: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid #2ECC71;
+        }
+
+        .layers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .layer-card {
+            background: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .layer-card:hover {
+            transform: translateY(-4px);
+            border-color: #555;
+        }
+
+        .layer-header {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: black;
+            font-weight: bold;
+        }
+
+        .layer-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .layer-meta {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .layer-number {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .layer-type {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .layer-content {
+            padding: 1.5rem;
+        }
+
+        .layer-name {
+            margin: 0 0 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        .layer-description {
+            color: #ccc;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .layer-importance,
+        .layer-technologies {
+            margin-bottom: 1.5rem;
+        }
+
+        .layer-importance h4,
+        .layer-technologies h4 {
+            margin: 0 0 0.5rem 0;
+            color: #2ECC71;
+            font-size: 0.9rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: #333;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .layer-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 3rem;
+            background: #1a1a1a;
+            border-radius: 8px;
+            border: 2px solid #2ECC71;
+        }
+
+        .btn-large-primary {
+            background: #2ECC71;
+            color: black;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+    </style>
+    <!-- Header Section -->
+    <div class="page-header">
+        <h1>The 15-Layer Architecture</h1>
+        <p class="subtitle">A comprehensive framework for documenting and understanding modern software stacks</p>
+        <div class="architecture-badge">
+            <span class="badge">15 Layers</span>
+            <span class="badge">2 Categories</span>
+            <span class="badge">Industry Standard</span>
+        </div>
+    </div>
+
+    <!-- Architecture Introduction -->
+    <div class="architecture-intro">
+        <h2>Why 15 Layers?</h2>
+        <p>Traditional stack documentation focuses only on runtime components. Our 15-layer model captures the complete
+            software lifecycle from development to deployment and maintenance.</p>
+
+        <div class="architecture-types">
+            <div class="arch-type architectural">
+                <h3>🏗️ Architectural Layers (1-8)</h3>
+                <p>The core runtime components that make your application function</p>
+            </div>
+            <div class="arch-type operational">
+                <h3>⚙️ Operational Layers (9-15)</h3>
+                <p>The tools and processes that enable development, deployment, and maintenance</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Layers Grid -->
+    <div class="layers-grid">
+        <!-- Layer 1: Client -->
+        <div class="layer-card architectural" data-layer="1">
+            <div class="layer-header" style="background-color: #ADDBE6;">
+                <div class="layer-icon">C</div>
+                <div class="layer-meta">
+                    <span class="layer-number">Layer 1</span>
+                    <span class="layer-type">Architectural</span>
+                </div>
+            </div>
+            <div class="layer-content">
+                <h3 class="layer-name">Client</h3>
+                <p class="layer-description">The user-facing interface where the experience begins. This layer
+                    represents the end-user's environment and interaction point.</p>
+
+                <div class="layer-importance">
+                    <h4>Why This Matters:</h4>
+                    <p>Defines user experience, accessibility, and the first point of contact. Different clients (web,
+                        mobile, desktop) require different architectural considerations.</p>
+                </div>
+
+                <div class="layer-technologies">
+                    <h4>Common Technologies:</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Web Browsers</span>
+                        <span class="tech-tag">Mobile Apps</span>
+                        <span class="tech-tag">Desktop Apps</span>
+                        <span class="tech-tag">IoT Devices</span>
+                    </div>
+                </div>
+
+                <div class="layer-actions">
+                    <button class="btn-outline" onclick="viewLayerDetails(1)">View Details</button>
+                    <button class="btn-primary" onclick="startDocumentingLayer(1)">Document This Layer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layer 2: Markup & Structure -->
+        <div class="layer-card architectural" data-layer="2">
+            <div class="layer-header" style="background-color: #F8F8FF;">
+                <div class="layer-icon">MS</div>
+                <div class="layer-meta">
+                    <span class="layer-number">Layer 2</span>
+                    <span class="layer-type">Architectural</span>
+                </div>
+            </div>
+            <div class="layer-content">
+                <h3 class="layer-name">Markup & Structure</h3>
+                <p class="layer-description">Defines content hierarchy and semantic structure. Goes beyond HTML to
+                    include any structured content definition.</p>
+
+                <div class="layer-importance">
+                    <h4>Why This Matters:</h4>
+                    <p>Determines content accessibility, SEO, and how information is organized. Critical for both human
+                        and machine readability.</p>
+                </div>
+
+                <div class="layer-technologies">
+                    <h4>Common Technologies:</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">XML</span>
+                        <span class="tech-tag">Markdown</span>
+                        <span class="tech-tag">JSX</span>
+                    </div>
+                </div>
+
+                <div class="layer-actions">
+                    <button class="btn-outline">View Details</button>
+                    <button class="btn-primary">Document This Layer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continue for all 15 layers with same structure -->
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Document Your Stack?</h2>
+            <p>Start building your stack specification and generate comprehensive documentation automatically.</p>
+            <button class="btn-large-primary" onclick="startNewStack()">
+                🚀 Start Building Your Stack
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    // api-config.js
+    const API_BASE = 'https://api.httpstack.tech/v1';
+
+    const HttpStackAPI = {
+        // Layer endpoints
+        layers: {
+            getAll: () => `${API_BASE}/layers`,
+            getById: (id) => `${API_BASE}/layers/${id}`,
+            getTechnologies: (layerId) => `${API_BASE}/layers/${layerId}/technologies`,
+            getQuestions: (layerId) => `${API_BASE}/layers/${layerId}/questions`
+        },
+
+        // Stack endpoints
+        stacks: {
+            getAll: () => `${API_BASE}/stacks`,
+            getById: (id) => `${API_BASE}/stacks/${id}`,
+            create: () => `${API_BASE}/stacks`,
+            update: (id) => `${API_BASE}/stacks/${id}`,
+            validate: (id) => `${API_BASE}/stacks/${id}/validate`
+        },
+
+        // Technology endpoints
+        technologies: {
+            getAll: () => `${API_BASE}/technologies`,
+            search: (query) => `${API_BASE}/technologies?search=${encodeURIComponent(query)}`,
+            getCompatibility: (techIds) => `${API_BASE}/technologies/compatibility?ids=${techIds.join(',')}`
+        },
+
+        // Documentation endpoints
+        documentation: {
+            generate: (stackId) => `${API_BASE}/stacks/${stackId}/documentation`,
+            export: (stackId, format) => `${API_BASE}/stacks/${stackId}/export?format=${format}`
+        }
+    };
+    // httpstack-ajax.js
+    class HttpStackAJAX {
+        constructor() {
+            this.cache = new Map();
+            this.pendingRequests = new Map();
+        }
+
+        // Generic request handler with caching
+        async request(endpoint, options = {}) {
+            const cacheKey = `${endpoint}-${JSON.stringify(options)}`;
+
+            // Return cached result if available
+            if (this.cache.has(cacheKey) && !options.forceRefresh) {
+                return this.cache.get(cacheKey);
+            }
+
+            // Prevent duplicate requests
+            if (this.pendingRequests.has(cacheKey)) {
+                return this.pendingRequests.get(cacheKey);
+            }
+
+            const requestPromise = this._makeRequest(endpoint, options)
+                .then(data => {
+                    this.cache.set(cacheKey, data);
+                    this.pendingRequests.delete(cacheKey);
+                    return data;
+                })
+                .catch(error => {
+                    this.pendingRequests.delete(cacheKey);
+                    throw error;
+                });
+
+            this.pendingRequests.set(cacheKey, requestPromise);
+            return requestPromise;
+        }
+
+        async _makeRequest(endpoint, options) {
+            const response = await fetch(endpoint, {
+                method: options.method || 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    ...options.headers
+                },
+                body: options.body ? JSON.stringify(options.body) : undefined
+            });
+
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.status} ${response.statusText}`);
+            }
+
+            return response.json();
+        }
+
+        // Layer-specific methods
+        async getLayers() {
+            return this.request(HttpStackAPI.layers.getAll());
+        }
+
+        async getLayerDetails(layerId) {
+            return this.request(HttpStackAPI.layers.getById(layerId));
+        }
+
+        async getLayerTechnologies(layerId) {
+            return this.request(HttpStackAPI.layers.getTechnologies(layerId));
+        }
+
+        async getLayerQuestions(layerId) {
+            return this.request(HttpStackAPI.layers.getQuestions(layerId));
+        }
+
+        // Stack-specific methods
+        async createStack(stackData) {
+            return this.request(HttpStackAPI.stacks.create(), {
+                method: 'POST',
+                body: stackData
+            });
+        }
+
+        async updateStack(stackId, updates) {
+            return this.request(HttpStackAPI.stacks.update(stackId), {
+                method: 'PATCH',
+                body: updates
+            });
+        }
+
+        async validateStack(stackId) {
+            return this.request(HttpStackAPI.stacks.validate(stackId));
+        }
+
+        // Technology compatibility
+        async checkCompatibility(techIds) {
+            return this.request(HttpStackAPI.technologies.getCompatibility(techIds));
+        }
+
+        // Documentation generation
+        async generateDocumentation(stackId) {
+            return this.request(HttpStackAPI.documentation.generate(stackId), {
+                method: 'POST'
+            });
+        }
+
+        // Clear cache for specific endpoints
+        clearCache(pattern) {
+            for (const key of this.cache.keys()) {
+                if (key.includes(pattern)) {
+                    this.cache.delete(key);
+                }
+            }
+        }
+    }
+</script>

@@ -3,32 +3,27 @@
 namespace Core\Model;
 
 use Core\Model\Concrete\BaseModel;
-use Core\Datasource\Contracts\CRUD;
+use App\Datasources\Contracts\CrudInterface;
 use Core\Datasource\AbstractDatasource;
 use Core\Model\Contracts\AttributeState;
 
 abstract class AbstractModel extends BaseModel
 {
     protected array $states = []; // Stack to hold states
-    protected CRUD $datasource; // The datasource for this model
+    protected CrudInterface $datasource; // The datasource for this model
 
-    public function __construct(CRUD $datasource)
+    public function __construct(CrudInterface $datasource)
     {
         // Initialize the datasource
         parent::__construct($datasource->read());
         $this->datasource = $datasource; // Initialize the datasource
         $this->states = []; // Initialize the states array
-        // Optionally, you can initialize the model with the initial data
-        // Initialize any additional properties or methods specific to AbstractModel
     }
 
-    public function pushState(string $restorePoint): mixed
+    public function pushState(string $nameSpace): mixed
     {
-        $this->states[$restorePoint] = $this->getAll();
-        // Implement logic to push a new state onto the stack
-        // This could involve saving the current state of attributes
-        // and any other relevant data to a stack or array.
-        return "State pushed: " . $restorePoint;
+        $this->states[$nameSpace] = $this->getAll();
+        return "State pushed: " . $nameSpace;
     }
 
     public function popState(): array
@@ -46,24 +41,8 @@ abstract class AbstractModel extends BaseModel
     public function getState(string $restorePoint): ?array
     {
         return $this->states[$restorePoint] ?? null;
-        // Implement logic to retrieve a specific state from the stack
-        // without modifying the current state.
     }
-    /*
-    //REWRITE THE METHODS THAT READ THE MODEL SO THEY PUSH THE STATE
-    public function get(string $strKey): mixed{
-        $this->pushState("before_get_{$strKey}");
-        return parent::get($strKey);
-    }
-    public function getAll(): array{
-        $this->pushState("before_getAll");
-        return parent::getAll();
-    }
-    public function has(string $strKey): bool{
-        $this->pushState("before_has_{$strKey}");
-        return parent::has($strKey);
-    }
-     */
+
     //REWRITE THE METHODS THAT MUTATE THE MODEL SO THEY PUSH THE STATE
     public function set(string $strKey, mixed $mixValue): void
     {

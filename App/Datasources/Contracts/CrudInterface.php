@@ -4,8 +4,8 @@ namespace App\Datasources\Contracts;
 
 interface CrudInterface
 {
-    public function create(array $payload): bool;
-    public function read(array $query): array;
-    public function update(array $query, mixed $payload): bool;
-    public function delete(string|int $key): bool;
+    public function create(array $payload, $params = []): bool;
+    public function read(array $query, $filter = []): mixed;
+    public function update(array $where, array $mixedPayload): bool;
+    public function delete(array $where, $params = []): bool;
 }

@@ -394,3 +394,13 @@ html[data-theme="light"] .theme-icon-moon { opacity: 0; transform: translate(-50
 .info-section-link:hover .info-section {
     background-color: var(--theme-bg-alt); /* Or a slightly different hover color */
 }
+
+
+//codelama
+        #response {
+            white-space: pre-wrap;
+            margin-top: 20px;
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }

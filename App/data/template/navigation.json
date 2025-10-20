@@ -1,0 +1,56 @@
+{
+    "main_site": {
+        "home": {
+            "title": "Home",
+            "url": "/",
+            "template": "home/home"
+        },
+        "how_it_works": {
+            "title": "How It Works",
+            "url": "/how-it-works",
+            "template": "home/how-it-works"
+        },
+        "layers": {
+            "title": "15 Layers",
+            "url": "/layers",
+            "template": "home/layers"
+        },
+        "verified_stacks": {
+            "title": "Verified Stacks",
+            "url": "/verified-stacks",
+            "template": "home/verified-stacks"
+        },
+        "login": {
+            "title": "Login",
+            "url": "/login",
+            "template": "auth/login"
+        }
+    },
+    "dashboard": {
+        "dashboard": {
+            "title": "Dashboard",
+            "url": "/dashboard",
+            "template": "dashboard/dashboard"
+        },
+        "stack_builder": {
+            "title": "Stack Builder",
+            "url": "/stack-builder",
+            "template": "dashboard/stack-builder"
+        },
+        "my_stacks": {
+            "title": "My Stacks",
+            "url": "/my-stacks",
+            "template": "dashboard/my-stacks"
+        },
+        "templates": {
+            "title": "Templates",
+            "url": "/templates",
+            "template": "dashboard/templates"
+        },
+        "community": {
+            "title": "Community Stacks",
+            "url": "/community",
+            "template": "dashboard/community"
+        }
+    }
+}

@@ -1,8 +1,8 @@
 <?php
 
-namespace HttpStack\Datasource\Contracts;
+namespace Core\Datasource\Contracts;
 
-interface CRUD
+interface CrudInterface
 {
     public function create(array $query, array $data): mixed;
     public function read(array $payload = []): mixed;
