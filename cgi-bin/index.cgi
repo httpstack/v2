@@ -1,42 +1,25 @@
 #!.venv/bin/python3.10
-import cgi
 import cgitb
-import css
-import html
+import cgi
 
-thedis = css.grammar.parse("""
-body {
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
-    margin: 20px;
-}
-""")
+from urllib.parse import urlparse
+
+from core.container import Container
+from core.fs.file import FileLoader
+from flask import Flask, request
 
 # Enable error reporting
 cgitb.enable()
-
 print("Content-Type: text/html\n")
-print(f"""
-<html>
-<head>
-    <title>Python CGI Test</title>
-</head>
-<body>
-    <h1>H{thedis}from Python CGI!</h1>
-    <p>This is a test of Python CGI scripting with Apache.</p>
-""")
+container = Container()
+loader = FileLoader(container)
+
+# Register alias
+container.alias("ctrl.routes.home", "app.controllers.routes.home.HomeController")
+home_ctrl = loader.include("ctrl.routes.home")
+content = home_ctrl.index()
+print(content)
 
 # Get form data (if any)
-form = cgi.FieldStorage()
-if "name" in form:
-    print(f"<p>Hello, {form['name'].value}!</p>")
 
-print("""
-    <form method="post">
-        <label for="name">Enter your name:</label>
-        <input type="text" id="name" name="name">
-        <input type="submit" value="Submit">
-    </form>
-</body>
-</html>
-""")
+    
