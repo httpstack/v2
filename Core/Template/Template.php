@@ -128,6 +128,11 @@ class Template extends DOMDocument
         }
         $this->setXPath();
     }
+    public function insertView(string $htmlDocument){
+         $target = $this->getElementById('data-view');
+         $frag = $this->createFragment($htmlDocument);
+         $target.appendChild($frag);
+    }
     public function readTemplate($nameSpace, $template)
     {
         $this->templates[$nameSpace] = $template;
